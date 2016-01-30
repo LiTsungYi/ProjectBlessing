@@ -9,7 +9,14 @@ public class GameDataView : GoogleDataBase<GameData>
 [System.Serializable]
 public class GameData
 {
-	public int a;
-	public int b;
-	public int c;
+	public string id;
+	public string name;
+	public string image;
+	public string hitPoint;
+	public string attack;
+	public string defence;
+	public string speed;
+	public string avoid;
+	public string skill;
+	public string note;
 }
