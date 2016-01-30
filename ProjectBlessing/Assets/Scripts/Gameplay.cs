@@ -162,12 +162,16 @@ public class Gameplay : MonoBehaviour
 		{
 			hero = heroRole.gameInfo.DeepClone();
 		}
-		
+		Debug.Log( string.Format( "Hero: {0}, Hp={1}, Atk={2}, Def={3}, Spd={4}, Avo={5}", 
+		                         hero.Name, hero.HitPoint, hero.Attack, hero.Defence, hero.Speed, hero.Avoid ) );
+
 		var monster = new GameInfo( App.Instance.monsterInfo );
 		if ( monsterRole.enable )
 		{
 			monster = monsterRole.gameInfo.DeepClone();
 		}
+		Debug.Log( string.Format( "Monster: {0}, Hp={1}, Atk={2}, Def={3}, Spd={4}, Avo={5}", 
+		                         monster.Name, monster.HitPoint, monster.Attack, monster.Defence, monster.Speed, monster.Avoid ) );
 		
 		gameRule = new GameRules( hero, monster );
 		playResult = gameRule.Attack();

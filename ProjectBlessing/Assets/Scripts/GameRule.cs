@@ -25,7 +25,7 @@ public class GameRules
 
 	private int CalulateDamage( GameInfo attacker, GameInfo defender )
 	{
-		return Math.Max( attacker.Attack - defender.Defence, 1 );
+		return defender.Defence >= attacker.Attack ? 1 : attacker.Attack - defender.Defence;
 	}
 
 	private void UpdateDamage( GameInfo defender, int damage )
@@ -54,24 +54,18 @@ public class GameRules
 			
 			if ( Hero.Cooldown < Monster.Cooldown  )
 			{
-				// Hero Attack!
-				Debug.Log( "Hero Attack!" );
-				
 				attacker = Hero;
 				defender = Monster;
 			}
 			else
 			{
-				// Monster Attack!
-				Debug.Log( "Monster Attack!" );
-				
 				attacker = Monster;
 				defender = Hero;
 			}
 			
 			if ( !CalaulateHit( defender ) )
 			{
-				Debug.Log( string.Format( "{0} missed at {1}", attacker.Id, attacker.Cooldown ) );
+				Debug.Log( string.Format( "{0} missed at {1}", attacker.Name, attacker.Cooldown ) );
 
 				result.Add( new AttackResult() {
 					time = attacker.Cooldown,
@@ -94,13 +88,18 @@ public class GameRules
 				damage = damage,
 			});
 			
-			Debug.Log( string.Format( "{0} deal {1} damage to {2} at {3}", attacker.Id, damage, defender.Id, attacker.Cooldown ) );
+			Debug.Log( string.Format( "{0} deal {1} damage to {2} at {3}", attacker.Name, damage, defender.Name, attacker.Cooldown ) );
 			UpdateCooldown( attacker );
 		}
 
 		if ( Hero.Alive )
 		{
 			App.Instance.win = true;
+			Debug.Log( "Hero Win" );
+		}
+		else
+		{
+			Debug.Log( "Hero Lose" );
 		}
 
 		return result;
