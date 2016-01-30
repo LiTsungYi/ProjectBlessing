@@ -10,9 +10,10 @@ public class GameDataView : GoogleDataBase<GameData>
 public class GameData
 {
 	public string id;
-	public string name;
 	public string image;
 	
+	public string name;
+	public int lv = 0;
 	public int hitPoint;
 	public int attack;
 	public int defence;

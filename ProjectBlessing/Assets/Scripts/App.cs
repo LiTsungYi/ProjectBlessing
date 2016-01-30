@@ -3,7 +3,7 @@ using System.Collections;
 
 public class App : Singleton<App>
 {
-	private GameData _HeroInfo;
+	[ReadOnly] [SerializeField] private GameData _HeroInfo = null;
 	public GameData heroInfo
 	{
 		get
@@ -20,7 +20,7 @@ public class App : Singleton<App>
 		}
 	}
 	
-	private GameData _MonsterInfo;
+	[ReadOnly] [SerializeField] private GameData _MonsterInfo = null;
 	public GameData monsterInfo
 	{
 		get
@@ -104,10 +104,47 @@ public class App : Singleton<App>
 		
 		return role;
 	}
+	
+	public void AddRoleValue(GameData roleInfo, RoleGeneraSetting setting, EnumRoleValueType addType)
+	{
+		switch(addType)
+		{
+		case EnumRoleValueType.hp:
+			roleInfo.hitPoint += setting.hpDef;
+			break;
+			
+		case EnumRoleValueType.atk:
+			roleInfo.attack += setting.atkDef;
+			break;
+			
+		case EnumRoleValueType.def:
+			roleInfo.defence += setting.defDef;
+			break;
+			
+		case EnumRoleValueType.avoid:
+			roleInfo.avoid += setting.avoidDef;
+			break;
+			
+		case EnumRoleValueType.speed:
+			roleInfo.speed += setting.speedDef;
+			break;
+		}
+	}
 }
 
 public enum EnumRoleType
 {
 	HERO,
 	MOSTER,
+}
+
+public enum EnumRoleValueType
+{
+	hp,
+	atk,
+	def,
+	avoid,
+	speed,
+	
+	max,
 }
