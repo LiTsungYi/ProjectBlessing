@@ -70,9 +70,9 @@ public class GameRules
 				result.Add( new AttackResult() {
 					time = attacker.Cooldown,
 					attacker = attacker,
-					defender = defender,
 					hit = false,
 					damage = 0,
+					hp = defender.HitPoint,
 				});
 				UpdateCooldown( attacker );
 				continue;
@@ -83,9 +83,9 @@ public class GameRules
 			result.Add( new AttackResult() {
 				time = attacker.Cooldown,
 				attacker = attacker,
-				defender = defender,
 				hit = true,
 				damage = damage,
+				hp = defender.HitPoint,
 			});
 			
 			Debug.Log( string.Format( "{0} deal {1} damage to {2} at {3}", attacker.Name, damage, defender.Name, attacker.Cooldown ) );
@@ -152,7 +152,7 @@ public class AttackResult
 {
 	public float time;
 	public GameInfo attacker;
-	public GameInfo defender;
 	public bool hit;
 	public int damage;
+	public int hp;
 }

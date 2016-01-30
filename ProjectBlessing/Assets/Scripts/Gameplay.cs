@@ -8,9 +8,11 @@ public class Gameplay : MonoBehaviour
 {
 	public GameRules gameRule;
 	public Camera theCamera;
+	public Transform canvasTrans;
 
 	public Role heroRole;
 	public Role monsterRole;
+	public Text titleText;
 	public bool enableBack = true;
 
 	private bool playAction = false;
@@ -20,6 +22,16 @@ public class Gameplay : MonoBehaviour
 	
 	private StageState state = StageState.None;
 	private bool entering = false;
+
+	public GameObject uiTitlePrefab;
+
+
+	void Awake()
+	{
+		titleText = TSUtil.InstantiateForUGUI(uiTitlePrefab, canvasTrans).GetComponentInChildren<Text>();
+		//uiResultCtrl = TSUtil.InstantiateForUGUI(uiResultPrefab, canvasTrans).GetComponent<UIResultsController>();
+		//heroSpriteCtrl.Init(OnBodyClick);
+	}
 
 	void Start ()
 	{
@@ -31,6 +43,7 @@ public class Gameplay : MonoBehaviour
 		monsterRole.gameObject.transform.position = new Vector3( 505.0f, monsterPosition.y, monsterPosition.z );
 		monsterRole.gameObject.SetActive( true );
 		SetState( StageState.Moving );
+		titleText.text = App.Instance.heroInfo.name + "T";
 	}
 	
 	void Update ()
@@ -154,11 +167,13 @@ public class Gameplay : MonoBehaviour
 		Debug.Log( string.Format( "Hero: {0}/{6}, Hp={1}, Atk={2}, Def={3}, Spd={4}, Avo={5}", 
 			hero.Name, hero.HitPoint, hero.Attack, hero.Defence, hero.Speed, hero.Avoid, hero.Id ) );
 		heroRole.gameInfo = hero;
+		heroRole.hpText.text = string.Format( "{0}", hero.HitPoint );
 
 	    var monster = new GameInfo( App.Instance.monsterInfo );
 		Debug.Log( string.Format( "Monster: {0}/{6}, Hp={1}, Atk={2}, Def={3}, Spd={4}, Avo={5}", 
 			monster.Name, monster.HitPoint, monster.Attack, monster.Defence, monster.Speed, monster.Avoid, monster.Id ) );
 		monsterRole.gameInfo = monster;
+		monsterRole.hpText.text = string.Format( "{0}", monster.HitPoint );
 
 		gameRule = new GameRules( hero, monster );
 		playResult = gameRule.Attack();
@@ -189,11 +204,13 @@ public class Gameplay : MonoBehaviour
 		{
 			// Hero Attack
 			heroRole.transform.DOShakePosition( 0.1f );
+			monsterRole.hpText.text = string.Format( "{0}", action.hp );
 		}
 		else
 		{
 			// Monster attack
 			monsterRole.transform.DOShakePosition( 0.1f );
+			heroRole.hpText.text = string.Format( "{0}", action.hp );
 		}
 
 		return ++playIndex >= playResult.Count;
