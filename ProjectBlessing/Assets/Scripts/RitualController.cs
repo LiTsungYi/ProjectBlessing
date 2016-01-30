@@ -21,14 +21,6 @@ public class RitualController : MonoBehaviour
 		Init();
 	}
 	
-	void Update()
-	{
-		if(ritualCount <= 0)
-		{
-			Application.LoadLevel("game");
-		}
-	}
-	
 	void Init()
 	{
 		App.Instance.heroInfo.lv++;	// hero levelup
@@ -54,7 +46,7 @@ public class RitualController : MonoBehaviour
 		try
 		{
 			EnumRoleValueType addType = (EnumRoleValueType)System.Enum.Parse(typeof(EnumRoleValueType), ran.ToString());
-			App.Instance.AddRoleValue(App.Instance.monsterInfo, App.Instance.gameSettingManager.mosterLevelUpSetting, addType);	
+			App.Instance.AddRoleValue(App.Instance.monsterInfo, addType);	
 		}
 		catch
 		{
@@ -75,8 +67,13 @@ public class RitualController : MonoBehaviour
 	void OnBodyClick(HeroBodyBase bodyBase)
 	{
 		Debug.Log ("OnBodyClick: " + bodyBase.ToString());
-		App.Instance.AddRoleValue(App.Instance.heroInfo, App.Instance.gameSettingManager.ritualSetting, bodyBase.bodyType);
+		App.Instance.AddRoleValue(App.Instance.heroInfo, bodyBase.bodyType);
 		ritualCount--;
 		ShowNowHeroInfo();
+		
+		if(ritualCount <= 0)
+		{
+			Application.LoadLevel("ritual");
+		}
 	}
 }

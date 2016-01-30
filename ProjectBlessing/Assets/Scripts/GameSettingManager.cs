@@ -5,8 +5,6 @@ public class GameSettingManager : MonoBehaviour
 {	
 	public RoleGeneraSetting heroDefSetting;
 	public RoleGeneraSetting mosterDefSetting;
-	public RoleGeneraSetting ritualSetting;
-	public RoleGeneraSetting mosterLevelUpSetting;
 }
 
 [System.Serializable]

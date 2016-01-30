@@ -105,28 +105,38 @@ public class App : Singleton<App>
 		return role;
 	}
 	
-	public void AddRoleValue(GameData roleInfo, RoleGeneraSetting setting, EnumRoleValueType addType)
+	public void AddRoleValue(GameData roleInfo, EnumRoleValueType addType)
 	{
 		switch(addType)
 		{
 		case EnumRoleValueType.hp:
-			roleInfo.hitPoint += setting.hpDef;
+			roleInfo.vit++;
+			roleInfo.hitPoint += roleInfo.vit;
 			break;
 			
 		case EnumRoleValueType.atk:
-			roleInfo.attack += setting.atkDef;
+			roleInfo.attack += Random.Range(1, roleInfo.lv);
 			break;
 			
 		case EnumRoleValueType.def:
-			roleInfo.defence += setting.defDef;
+			roleInfo.defence += Random.Range(1, roleInfo.lv);
 			break;
 			
 		case EnumRoleValueType.avoid:
-			roleInfo.avoid += setting.avoidDef;
+			roleInfo.agi++;
+			if(roleInfo.agi <= 25)
+			{
+				roleInfo.avoid += 2;
+			}
+			else
+			{
+				roleInfo.avoid += 1;
+			}
 			break;
 			
 		case EnumRoleValueType.speed:
-			roleInfo.speed += setting.speedDef;
+			roleInfo.dex++;
+			roleInfo.speed = 1 * Mathf.Pow( 0.9f, roleInfo.dex);
 			break;
 		}
 	}
