@@ -113,7 +113,7 @@ public class RitualController : MonoBehaviour
 		
 		if(ritualCount <= 0)
 		{
-			Application.LoadLevel("ritual");
+			Application.LoadLevel("game");
 		}
 	}
 }
