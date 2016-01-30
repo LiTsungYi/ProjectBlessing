@@ -46,6 +46,7 @@ public class GameRules
 			return result;
 		}
 
+		App.Instance.win = false;
 		while ( Hero.Alive && Monster.Alive )
 		{
 			GameInfo attacker = null;
@@ -70,7 +71,7 @@ public class GameRules
 			
 			if ( !CalaulateHit( defender ) )
 			{
-				Debug.Log( string.Format( "{0} missed at {1}", attacker.Name, attacker.Cooldown ) );
+				Debug.Log( string.Format( "{0} missed at {1}", attacker.Id, attacker.Cooldown ) );
 
 				result.Add( new AttackResult() {
 					time = attacker.Cooldown,
@@ -93,8 +94,13 @@ public class GameRules
 				damage = damage,
 			});
 			
-			Debug.Log( string.Format( "{0} deal {1} damage to {2} at {3}", attacker.Name, damage, defender.Name, attacker.Cooldown ) );
+			Debug.Log( string.Format( "{0} deal {1} damage to {2} at {3}", attacker.Id, damage, defender.Id, attacker.Cooldown ) );
 			UpdateCooldown( attacker );
+		}
+
+		if ( Hero.Alive )
+		{
+			App.Instance.win = true;
 		}
 
 		return result;
@@ -113,8 +119,6 @@ public class GameInfo
 		Defence = data.defence;
 		Speed = data.speed;
 		Avoid = data.avoid;
-
-		Cooldown = Speed;
 	}
 
 	public bool Alive
@@ -140,6 +144,8 @@ public class GameInfo
 	{
 		Speed = Mathf.Max( Mathf.Min( Speed, 10.0f ), 0.01f );
 		Avoid = Mathf.Max( Mathf.Min( Avoid, 100.0f ), 0.0f );
+		
+		Cooldown = Speed;
 	}
 }
 

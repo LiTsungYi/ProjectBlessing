@@ -7,6 +7,10 @@ using DG.Tweening;
 public class Gameplay : MonoBehaviour
 {
 	public GameRules gameRule;
+	public Camera theCamera;
+	
+	public GameObject hero;
+	public GameObject monster;
 
 	public Role heroRole;
 	public Role monsterRole;
@@ -18,11 +22,48 @@ public class Gameplay : MonoBehaviour
 	private int playIndex = 0;
 	private IList<AttackResult> playResult = new List<AttackResult>();
 	private float playDuration = 0.0f;
+	
+	private StageState state = StageState.None;
+	private bool entering = false;
 
 	void Start ()
 	{
-		//ResetPlay();
+		// NOTE: set hero and monster here!
+		var heroPosition = hero.transform.position;
+		hero.transform.position = new Vector3( -10.0f, heroPosition.y, heroPosition.z );
+		hero.active = true;
+		var monsterPosition = monster.transform.position;
+		monster.transform.position = new Vector3( 510.0f, monsterPosition.y, monsterPosition.z );
+		monster.active = true;
+		SetState( StageState.Moving );
+
 		EventTriggerListener.Get(fightButton).onClick = OnFightClickX;
+	}
+	
+	void Update ()
+	{
+		switch ( state )
+		{
+			
+		case StageState.Moving:
+			Moving();
+			break;
+			
+		case StageState.Meet:
+			Meeting();
+			break;
+			
+		case StageState.Fight:
+			Fighting();
+			break;
+			
+		case StageState.Final:
+			Finally();
+			break;
+			
+		default:
+			break;
+		}
 	}
 
 	void FixedUpdate()
@@ -35,13 +76,75 @@ public class Gameplay : MonoBehaviour
 			if ( finish )
 			{
 				ResetPlay();
-
-				if (enableBack )
-				{
-					Application.LoadLevel("ritual");
-				}
+				SetState( StageState.Final );
 			}
 		}
+	}
+
+	#region Update
+
+	private void Moving()
+	{
+		if ( entering )
+		{
+			theCamera.transform.DOMoveX( 500.0f, 5.0f ).OnComplete( MoveEnd );
+			hero.transform.DOMoveX( 490.0f, 5.0f );
+			entering = false;
+		}
+	}
+	
+	private void MoveEnd()
+	{
+		SetState( StageState.Meet );
+	}
+	
+	private void Meeting()
+	{
+		if ( entering )
+		{
+			SetState( StageState.Fight );
+		}
+	}
+	
+	private void Fighting()
+	{
+		if ( entering )
+		{
+			entering = false;
+			Attack();
+		}
+	}
+	
+	private void Finally()
+	{
+		if ( entering )
+		{
+			entering = false;
+			if ( enableBack )
+			{
+				Application.LoadLevel("ritual");
+			}
+			else
+			{
+				if ( App.Instance.win )
+				{
+					monsterRole.gameObject.SetActive( false );
+				}
+				else
+				{
+					heroRole.gameObject.SetActive( false );
+				}
+
+				SetState( StageState.None );
+			}
+		}
+	}
+	#endregion
+
+	private void SetState( StageState newState )
+	{
+		state = newState;
+		entering = true;
 	}
 
 	private void ResetPlay()
@@ -114,4 +217,13 @@ public class Gameplay : MonoBehaviour
 
 		return ++playIndex >= playResult.Count;
 	}
+}
+
+public enum StageState
+{
+	None,
+	Moving,
+	Meet,
+	Fight,
+	Final,
 }

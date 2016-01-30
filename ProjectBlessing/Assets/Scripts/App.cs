@@ -15,6 +15,8 @@ public class App : Singleton<App>
 		"AAA", "BBB"
 	};
 
+	public bool win = false;
+
 	[ReadOnly] [SerializeField] private GameData _HeroInfo = null;
 	public GameData heroInfo
 	{
