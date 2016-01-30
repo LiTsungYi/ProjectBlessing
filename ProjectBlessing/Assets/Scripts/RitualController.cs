@@ -4,6 +4,7 @@ using System.Collections;
 public class RitualController : MonoBehaviour 
 {
 	public int ritualCount;
+	public Camera uiCamera;
 	
 	public Transform canvasTrans;
 	public GameObject uiBlessPrefab;
@@ -12,12 +13,24 @@ public class RitualController : MonoBehaviour
 	
 	public GameObject uiResultPrefab;
 	[HideInInspector] public UIResultsController uiResultCtrl;
+	
+	public GameObject uiSwordPrefab;
+	[HideInInspector] public RectTransform uiSwordTrans;
 
 	void Awake()
 	{
 		uiBlessCtrl = TSUtil.InstantiateForUGUI(uiBlessPrefab, canvasTrans).GetComponent<UIBlessController>();
 		uiResultCtrl = TSUtil.InstantiateForUGUI(uiResultPrefab, canvasTrans).GetComponent<UIResultsController>();
+		uiSwordTrans = TSUtil.InstantiateForUGUI(uiSwordPrefab, canvasTrans).GetComponent<RectTransform>();
+		
 		heroSpriteCtrl.Init(OnBodyClick);
+	}
+	
+	void Update()
+	{
+		Vector3 point = Input.mousePosition;
+		point.z = 10;
+		uiSwordTrans.position = uiCamera.ScreenToWorldPoint(point);
 	}
 	
 	void Start()
