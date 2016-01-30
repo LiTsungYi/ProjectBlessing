@@ -151,13 +151,13 @@ public class Gameplay : MonoBehaviour
 	public void Attack()
 	{
 		var hero = new GameInfo( App.Instance.heroInfo );
-		Debug.Log( string.Format( "Hero: {0}, Hp={1}, Atk={2}, Def={3}, Spd={4}, Avo={5}", 
-		                         hero.Name, hero.HitPoint, hero.Attack, hero.Defence, hero.Speed, hero.Avoid ) );
+		Debug.Log( string.Format( "Hero: {0}/{6}, Hp={1}, Atk={2}, Def={3}, Spd={4}, Avo={5}", 
+			hero.Name, hero.HitPoint, hero.Attack, hero.Defence, hero.Speed, hero.Avoid, hero.Id ) );
 		heroRole.gameInfo = hero;
 
 	    var monster = new GameInfo( App.Instance.monsterInfo );
-		Debug.Log( string.Format( "Monster: {0}, Hp={1}, Atk={2}, Def={3}, Spd={4}, Avo={5}", 
-		                         monster.Name, monster.HitPoint, monster.Attack, monster.Defence, monster.Speed, monster.Avoid ) );
+		Debug.Log( string.Format( "Monster: {0}/{6}, Hp={1}, Atk={2}, Def={3}, Spd={4}, Avo={5}", 
+			monster.Name, monster.HitPoint, monster.Attack, monster.Defence, monster.Speed, monster.Avoid, monster.Id ) );
 		monsterRole.gameInfo = monster;
 
 		gameRule = new GameRules( hero, monster );
