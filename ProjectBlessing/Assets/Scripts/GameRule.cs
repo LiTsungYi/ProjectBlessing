@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class GameRule 
+public class GameRules
 {
 	private GameInfo Hero = null;
 	private GameInfo Monster = null;
 
-	public GameRule( GameInfo hero, GameInfo monster )
+	public GameRules( GameInfo hero, GameInfo monster )
 	{
 		Hero = hero;
 		Monster = monster;

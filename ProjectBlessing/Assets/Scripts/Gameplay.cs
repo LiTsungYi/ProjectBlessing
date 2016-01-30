@@ -8,40 +8,22 @@ public class Gameplay : MonoBehaviour
 {
 	public GameDataView gameDataView;
 
-	private static GameRule gameRule;
+	private GameRules gameRule;
 
 	public Role heroRole;
 	public Role monsterRole;
 	public Text message;
 	public GameObject fightButton;
 
-	private object actionLock = new object();
-	private bool playAction
-	{
-		get
-		{
-			lock ( actionLock )
-			{
-				return playAction;
-			}
-		}
-
-		set
-		{
-			lock ( actionLock )
-			{
-				playAction = value;
-			}
-		}
-	}
+	private bool playAction = false;
 	private int playIndex = 0;
-	private IList<AttackResult> playResult = null;
+	private IList<AttackResult> playResult = new List<AttackResult>();
 	private float playDuration = 0.0f;
 
 	void Start ()
 	{
-		Reset();
-		EventTriggerListener.Get(fightButton).onClick = OnFightClick;
+		//ResetPlay();
+		EventTriggerListener.Get(fightButton).onClick = OnFightClickX;
 	}
 
 	void FixedUpdate()
@@ -53,13 +35,12 @@ public class Gameplay : MonoBehaviour
 
 			if ( finish )
 			{
-				Reset();
+				ResetPlay();
 			}
 		}
-
 	}
 
-	private void Reset()
+	private void ResetPlay()
 	{
 		playIndex = 0;
 		playResult = new List<AttackResult>();
@@ -67,7 +48,7 @@ public class Gameplay : MonoBehaviour
 		playDuration = 0.0f;
 	}
 
-	public void OnFightClick( GameObject obj )
+	public void OnFightClickX( GameObject obj )
 	{
 		if ( playAction )
 		{
@@ -76,8 +57,10 @@ public class Gameplay : MonoBehaviour
 
 		//Hero = App.Instance.heroInfo;
 		//Monster = App.Instance.monsterInfo;
-		gameRule = new GameRule( heroRole.gameInfo, monsterRole.gameInfo );
+
+		gameRule = new GameRules( heroRole.gameInfo, monsterRole.gameInfo );
 		playResult = gameRule.Attack();
+
 		playAction = true;
 		playDuration = 0.0f;
 	}
