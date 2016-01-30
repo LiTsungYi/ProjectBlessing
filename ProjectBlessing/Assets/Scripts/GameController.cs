@@ -5,7 +5,9 @@ public class GameController : Singleton<GameController>
 {	
 	public void Init()
 	{
+		
 	}
+	
 	
 	void OnGUI()
 	{

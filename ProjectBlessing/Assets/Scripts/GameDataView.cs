@@ -12,11 +12,13 @@ public class GameData
 	public string id;
 	public string name;
 	public string image;
-	public string hitPoint;
-	public string attack;
-	public string defence;
-	public string speed;
-	public string avoid;
+	
+	public int hitPoint;
+	public int attack;
+	public int defence;
+	public float speed;
+	public float avoid;
+	
 	public string skill;
 	public string note;
 }
