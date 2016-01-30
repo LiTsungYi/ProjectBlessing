@@ -5,12 +5,14 @@ public class RitualController : MonoBehaviour
 {
 	public int ritualCount;
 	
-	public RoleViewController heroViewCtrl;
-	public RoleViewController monsterViewCtrl;
+	public Transform canvasTrans;
+	public GameObject uiBlessPrefab;
+	[HideInInspector] public UIBlessController uiBlessCtrl;
 	public HeroController heroSpriteCtrl;
 
 	void Awake()
 	{
+		uiBlessCtrl = TSUtil.InstantiateForUGUI(uiBlessPrefab, canvasTrans).GetComponent<UIBlessController>();
 		heroSpriteCtrl.Init(OnBodyClick);
 	}
 	
@@ -62,12 +64,12 @@ public class RitualController : MonoBehaviour
 	
 	void ShowNowMosterInfo()
 	{
-		monsterViewCtrl.Show(App.Instance.monsterInfo);
+		uiBlessCtrl.monsterViewCtrl.Show(App.Instance.monsterInfo);
 	}
 	
 	void ShowNowHeroInfo()
 	{
-		heroViewCtrl.Show(App.Instance.heroInfo);
+		uiBlessCtrl.heroViewCtrl.Show(App.Instance.heroInfo);
 	}
 	
 	void OnBodyClick(HeroBodyBase bodyBase)
