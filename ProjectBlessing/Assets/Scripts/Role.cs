@@ -6,7 +6,6 @@ public class Role : MonoBehaviour
 {
 	[SerializeField]
 	public GameInfo gameInfo;
-
-	public Text name;
+	public bool enable;
 }
 

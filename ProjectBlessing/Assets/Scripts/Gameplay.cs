@@ -14,6 +14,7 @@ public class Gameplay : MonoBehaviour
 	public Role monsterRole;
 	public Text message;
 	public GameObject fightButton;
+	public bool enableBack = true;
 
 	private bool playAction = false;
 	private int playIndex = 0;
@@ -36,7 +37,11 @@ public class Gameplay : MonoBehaviour
 			if ( finish )
 			{
 				ResetPlay();
-				Application.LoadLevel("ritual");
+
+				if (enableBack )
+				{
+					Application.LoadLevel("ritual");
+				}
 			}
 		}
 	}
@@ -56,10 +61,19 @@ public class Gameplay : MonoBehaviour
 			return;
 		}
 
-		//Hero = App.Instance.heroInfo;
-		//Monster = App.Instance.monsterInfo;
+		var hero = new GameInfo( App.Instance.heroInfo );
+		if ( heroRole.enable )
+		{
+			hero = heroRole.gameInfo.DeepClone();
+		}
+		
+		var monster = new GameInfo( App.Instance.monsterInfo );
+		if ( monsterRole.enable )
+		{
+			monster = monsterRole.gameInfo.DeepClone();
+		}
 
-		gameRule = new GameRules( heroRole.gameInfo, monsterRole.gameInfo );
+		gameRule = new GameRules( hero, monster );
 		playResult = gameRule.Attack();
 
 		playAction = true;
