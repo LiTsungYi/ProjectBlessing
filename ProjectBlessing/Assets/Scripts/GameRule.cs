@@ -11,13 +11,16 @@ public class GameRules
 	public GameRules( GameInfo hero, GameInfo monster )
 	{
 		Hero = hero;
+		Hero.FixValue();
 		Monster = monster;
+		Monster.FixValue();
 	}
 	
 	private bool CalaulateHit( GameInfo defender )
 	{
 		var random = UnityEngine.Random.value;
-		return ( random > defender.Avoid );
+		var avoid = Mathf.Min( defender.Avoid / 100.0f, 1.0f );
+		return ( random > avoid );
 	}
 
 	private int CalulateDamage( GameInfo attacker, GameInfo defender )
@@ -133,10 +136,12 @@ public class GameInfo
 	[HideInInspector]
 	public float Cooldown;
 
+	public void FixValue()
+	{
+		Speed = Mathf.Max( Mathf.Min( Speed, 10.0f ), 0.01f );
+		Avoid = Mathf.Max( Mathf.Min( Avoid, 100.0f ), 0.0f );
+	}
 }
-
-
-
 
 public class AttackResult
 {
@@ -146,4 +151,3 @@ public class AttackResult
 	public bool hit;
 	public int damage;
 }
-
