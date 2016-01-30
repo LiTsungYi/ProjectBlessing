@@ -153,19 +153,21 @@ public class App : Singleton<App>
 	{
 		GameData role = new GameData();
 		RoleGeneraSetting generalSetting = null;
+		
 		switch(roleType)
 		{
 		case EnumRoleType.HERO:
+			role.id = "HERO";
 			generalSetting = gameSettingManager.heroDefSetting;
 			break;
 			
 		case EnumRoleType.MOSTER:
+			int monsterId = Random.Range(0, monsterNames.Length);
+			role.id = monsterNames[monsterId];
 			generalSetting = gameSettingManager.mosterDefSetting;
 			break;
 		}
 		
-		int monsterId = Random.Range(0, monsterNames.Length);
-		role.id = monsterNames[monsterId];
 		role.hitPoint = generalSetting.hpDef;
 		role.attack = generalSetting.atkDef;
 		role.defence = generalSetting.defDef;
