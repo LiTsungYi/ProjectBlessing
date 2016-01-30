@@ -45,6 +45,8 @@ public class GameRule
 
 			if ( !CalaulateHit( defender ) )
 			{
+				Debug.Log( string.Format( "{0} missed at {1}", attacker.Name, attacker.Cooldown ) );
+				UpdateCooldown( attacker );
 				continue;
 			}
 			
@@ -53,8 +55,6 @@ public class GameRule
 
 			Debug.Log( string.Format( "{0} deal {1} damage to {2} at {3}", attacker.Name, damage, defender.Name, attacker.Cooldown ) );
 			UpdateCooldown( attacker );
-
-			Debug.Log( "Fight End!" );
 		}
 
 		return new List<AttackResult>();
