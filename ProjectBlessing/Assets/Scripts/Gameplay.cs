@@ -6,9 +6,7 @@ using DG.Tweening;
 
 public class Gameplay : MonoBehaviour
 {
-	public GameDataView gameDataView;
-
-	private GameRules gameRule;
+	public GameRules gameRule;
 
 	public Role heroRole;
 	public Role monsterRole;
@@ -54,13 +52,8 @@ public class Gameplay : MonoBehaviour
 		playDuration = 0.0f;
 	}
 
-	public void OnFightClickX( GameObject obj )
+	public void Attack()
 	{
-		if ( playAction )
-		{
-			return;
-		}
-
 		var hero = new GameInfo( App.Instance.heroInfo );
 		if ( heroRole.enable )
 		{
@@ -72,12 +65,22 @@ public class Gameplay : MonoBehaviour
 		{
 			monster = monsterRole.gameInfo.DeepClone();
 		}
-
+		
 		gameRule = new GameRules( hero, monster );
 		playResult = gameRule.Attack();
-
+		
 		playAction = true;
 		playDuration = 0.0f;
+	}
+
+	public void OnFightClickX( GameObject obj )
+	{
+		if ( playAction )
+		{
+			return;
+		}
+
+		Attack();
 	}
 
 	private bool PerformAction()
