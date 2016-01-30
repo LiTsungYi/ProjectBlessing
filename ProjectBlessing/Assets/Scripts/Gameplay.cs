@@ -36,6 +36,7 @@ public class Gameplay : MonoBehaviour
 			if ( finish )
 			{
 				ResetPlay();
+				Application.LoadLevel("ritual");
 			}
 		}
 	}
