@@ -11,8 +11,8 @@ public class gameplay : MonoBehaviour
 
 	void Start ()
 	{
-		Hero = App.Instance.Hero;
-		Monster = App.Instance.Monster;
+		Hero = App.Instance.heroInfo;
+		Monster = App.Instance.monsterInfo;
 		GameRule = new GameRule( Hero, Monster );
 		GameRule.Attack();
 	}

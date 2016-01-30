@@ -88,11 +88,11 @@ public class GameInfo
 	{
 		Id = data.id;
 		Name = data.name;
-		int.TryParse( data.hitPoint, out HitPoint );
-		int.TryParse( data.attack, out Attack );
-		int.TryParse( data.defence, out Defence );
-		float.TryParse( data.speed, out Speed );
-		float.TryParse( data.avoid, out Avoid );
+		HitPoint = data.hitPoint;
+		Attack = data.attack;
+		Defence = data.defence;
+		Speed = data.speed;
+		Avoid = data.avoid;
 
 		Cooldown = Speed;
 	}
