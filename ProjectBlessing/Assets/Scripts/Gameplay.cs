@@ -78,7 +78,7 @@ public class Gameplay : MonoBehaviour
 			return true;
 		}
 
-		if ( action.time < playDuration )
+		if ( action.time > playDuration )
 		{
 			return false;
 		}
