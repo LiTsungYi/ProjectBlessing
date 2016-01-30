@@ -36,7 +36,7 @@ public class UIBlessController : MonoBehaviour
 	
 	public void ShowHeroName(string setname)
 	{
-		heroName.text = setname;
+//		heroName.text = setname;
 	}
 	
 	public void ShowMonsterName(string setname)
