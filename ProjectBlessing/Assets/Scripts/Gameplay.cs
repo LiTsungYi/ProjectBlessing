@@ -25,10 +25,10 @@ public class Gameplay : MonoBehaviour
 	{
 		// NOTE: set hero and monster here!
 		var heroPosition = heroRole.gameObject.transform.position;
-		heroRole.gameObject.transform.position = new Vector3( -10.0f, heroPosition.y, heroPosition.z );
+		heroRole.gameObject.transform.position = new Vector3( 0.0f, heroPosition.y, heroPosition.z );
 		heroRole.gameObject.SetActive( true );
 		var monsterPosition = monsterRole.gameObject.transform.position;
-		monsterRole.gameObject.transform.position = new Vector3( 510.0f, monsterPosition.y, monsterPosition.z );
+		monsterRole.gameObject.transform.position = new Vector3( 505.0f, monsterPosition.y, monsterPosition.z );
 		monsterRole.gameObject.SetActive( true );
 		SetState( StageState.Moving );
 	}
@@ -81,7 +81,7 @@ public class Gameplay : MonoBehaviour
 		if ( entering )
 		{
 			theCamera.transform.DOMoveX( 500.0f, 5.0f ).OnComplete( MoveEnd );
-			heroRole.gameObject.transform.DOMoveX( 490.0f, 5.0f );
+			heroRole.gameObject.transform.DOMoveX( 500.0f, 5.0f );
 			entering = false;
 		}
 	}
