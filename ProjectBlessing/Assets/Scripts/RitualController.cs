@@ -77,5 +77,6 @@ public class RitualController : MonoBehaviour
 		Debug.Log ("OnBodyClick: " + bodyBase.ToString());
 		App.Instance.AddRoleValue(App.Instance.heroInfo, App.Instance.gameSettingManager.ritualSetting, bodyBase.bodyType);
 		ritualCount--;
+		ShowNowHeroInfo();
 	}
 }
