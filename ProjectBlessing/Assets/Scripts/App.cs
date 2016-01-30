@@ -19,8 +19,6 @@ public class App : Singleton<App>
 	public bool isFirstPlay = true;
 	public bool isWin = false;
 
-	public bool win = false;
-
 	[ReadOnly] [SerializeField] private GameData _HeroInfo = null;
 	public GameData heroInfo
 	{

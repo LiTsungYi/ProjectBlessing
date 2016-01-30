@@ -64,7 +64,15 @@ public class RitualController : MonoBehaviour
 		ritualCount = App.Instance.heroInfo.lv;
 		App.Instance.monsterInfo = App.Instance.CreateNewRoleInfo(EnumRoleType.MOSTER);	//	create new monster
 		
-		for(int i = 0; i < App.Instance.heroInfo.lv; i++)
+		int mosterUpadteCnt = 0;
+		for(int i = 0; i <= App.Instance.heroInfo.lv; i++)
+		{
+			mosterUpadteCnt += i;
+		}
+		
+		Debug.LogWarning("UpdateMonsterLevel LV:" + mosterUpadteCnt);
+		
+		for(int i = 0; i < mosterUpadteCnt; i++)
 		{
 			UpdateMonsterLevel();
 		}

@@ -119,7 +119,7 @@ public class Gameplay : MonoBehaviour
 			}
 			else
 			{
-				if ( App.Instance.win )
+				if ( App.Instance.isWin )
 				{
 					monsterRole.gameObject.SetActive( false );
 				}

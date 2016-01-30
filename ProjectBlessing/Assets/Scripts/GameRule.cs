@@ -46,7 +46,7 @@ public class GameRules
 			return result;
 		}
 
-		App.Instance.win = false;
+		App.Instance.isWin = false;
 		while ( Hero.Alive && Monster.Alive )
 		{
 			GameInfo attacker = null;
@@ -94,7 +94,7 @@ public class GameRules
 
 		if ( Hero.Alive )
 		{
-			App.Instance.win = true;
+			App.Instance.isWin = true;
 			Debug.Log( "Hero Win" );
 		}
 		else
