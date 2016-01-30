@@ -77,6 +77,29 @@ public class App : Singleton<App>
 		}
 	}
 	
+	[ReadOnly] [SerializeField] private AudioController _audioCtrl = null;
+	public AudioController audioCtrl
+	{
+		get
+		{
+			if(null == _audioCtrl)
+			{
+				var prefab = Resources.Load("AudioController") as GameObject;
+				if(null == prefab)
+				{
+					Debug.LogError("NO AudioController FUCK!!!");
+					return null;
+				}
+				
+				if(null == _audioCtrl)
+				{
+					_audioCtrl = TSUtil.Instantiate(prefab, transform).GetComponent<AudioController>();
+				}
+			}
+			return _audioCtrl;
+		}
+	}
+	
 	[ReadOnly] [SerializeField] private GameSettingManager _gameSettingManager = null;
 	public GameSettingManager gameSettingManager
 	{
