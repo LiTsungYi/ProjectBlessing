@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GameDataManager : GoogleDataBase<GameData> 
+public class GameDataView : GoogleDataBase<GameData> 
 {
 
 }
