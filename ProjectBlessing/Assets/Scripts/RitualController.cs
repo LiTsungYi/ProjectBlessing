@@ -9,10 +9,14 @@ public class RitualController : MonoBehaviour
 	public GameObject uiBlessPrefab;
 	[HideInInspector] public UIBlessController uiBlessCtrl;
 	public HeroController heroSpriteCtrl;
+	
+	public GameObject uiResultPrefab;
+	[HideInInspector] public UIResultsController uiResultCtrl;
 
 	void Awake()
 	{
 		uiBlessCtrl = TSUtil.InstantiateForUGUI(uiBlessPrefab, canvasTrans).GetComponent<UIBlessController>();
+		uiResultCtrl = TSUtil.InstantiateForUGUI(uiResultPrefab, canvasTrans).GetComponent<UIResultsController>();
 		heroSpriteCtrl.Init(OnBodyClick);
 	}
 	
@@ -23,7 +27,39 @@ public class RitualController : MonoBehaviour
 	
 	void Init()
 	{
+		if(!App.Instance.isFirstPlay)
+		{
+			uiResultCtrl.Show(App.Instance.isWin, ()=>{
+				if(!App.Instance.isWin)
+				{
+					Application.LoadLevel("main");
+				}
+				else
+				{	
+					uiResultCtrl.gameObject.SetActive(false);
+					RitualStart();
+				}
+			});
+		}
+		else
+		{
+			App.Instance.isFirstPlay = false;
+			App.Instance.SetDefaultName();
+			uiResultCtrl.gameObject.SetActive(false);
+			RitualStart();
+		}
+	}
+	
+	void RitualStart()
+	{
 		App.Instance.heroInfo.lv++;	// hero levelup
+		if(App.Instance.heroInfo.lv > 10)
+		{
+			Debug.Log("GAME OVER");
+			uiResultCtrl.ShowGameover();
+			return;
+		}
+		uiBlessCtrl.Init();
 		App.Instance.monsterInfo.lv = App.Instance.heroInfo.lv;
 		ritualCount = App.Instance.heroInfo.lv;
 		App.Instance.monsterInfo = App.Instance.CreateNewRoleInfo(EnumRoleType.MOSTER);	//	create new monster

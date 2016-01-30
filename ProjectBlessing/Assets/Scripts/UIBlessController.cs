@@ -14,11 +14,12 @@ public class UIBlessController : MonoBehaviour
 	public GameObject ritualIconPrefab;
 	public GameObject[] ritualIcons;
 	
-	void Start()
+	public void Init()
 	{
 		ritualIcons = new GameObject[10];
 		for(int i = 0; i < App.Instance.heroInfo.lv; i++)
 		{
+			if( i >= ritualIcons.Length) continue;
 			ritualIcons[i] = TSUtil.InstantiateForUGUI(ritualIconPrefab, ritualTrans);
 		}
 	}

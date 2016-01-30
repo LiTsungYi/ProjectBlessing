@@ -7,5 +7,6 @@ public class MainController : MonoBehaviour
 	void Start () 
 	{
 		GameController.Instance.Init();
+		App.Instance.ResetGameInfo();
 	}
 }

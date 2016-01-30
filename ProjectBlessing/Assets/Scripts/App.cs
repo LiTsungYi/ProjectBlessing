@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class App : Singleton<App>
 {
 	public List<string> usedHonorName = new List<string>();
+	public List<string> usedNickName = new List<string>();
 	string[] honorNames = new string[] {
 		"Sword of QQQ", "Speer of QQQ", "Axe of QQQ", "Hammer of QQQ", "Flail of QQQ", "Fortress of QQQ", "Protector of QQQ", "Guardian of QQQ", "Savior of QQQ", "Shield of QQQ", "Slayer of QQQ", "Warrior of QQQ", "Assassin of QQQ", "Fighter of QQQ", "Soldier of QQQ", "QQQ of the Mist Mountain", "QQQ of the Deep Sea", "QQQ of the Crystal Lake", "QQQ of the Endless River", "QQQ of the Faraway Forest", "the Flame QQQ", "the Ice QQQ", "the Wind QQQ", "the Light of QQQ", "the Dark of QQQ"};
 		
@@ -14,6 +15,9 @@ public class App : Singleton<App>
 	string[] monsterNames = new string[]{
 		"AAA", "BBB"
 	};
+	
+	public bool isFirstPlay = true;
+	public bool isWin = false;
 
 	public bool win = false;
 
@@ -24,7 +28,7 @@ public class App : Singleton<App>
 		{
 			if(null == _HeroInfo)
 			{
-				_HeroInfo = TSSaveUtil.Instance.LoadFile<GameData>("HeroInfo");
+//				_HeroInfo = TSSaveUtil.Instance.LoadFile<GameData>("HeroInfo");
 				if(null == _HeroInfo)
 				{
 					_HeroInfo = CreateNewRoleInfo(EnumRoleType.HERO);
@@ -95,10 +99,26 @@ public class App : Singleton<App>
 		}
 	}
 	
+	public void SetDefaultName()
+	{
+		string defName = "Sir QQQ of the House of QQQ";
+		heroInfo.name = defName.Replace("QQQ", GetNickName());
+	}
+	
 	public string GetTheHonorName()
 	{
 		string outName = string.Empty;
-		int idx = Random.Range(0, honorNames.Length);
+		int cnt = 1000;
+		int idx = 0;
+		while(cnt > 0)
+		{
+			cnt--;
+			idx = Random.Range(0, honorNames.Length);
+			if(!usedHonorName.Contains(honorNames[idx]))
+			{
+				break;
+			}
+		}
 		usedHonorName.Add(honorNames[idx]);
 		
 		if(heroInfo.name.Equals(string.Empty))
@@ -114,9 +134,20 @@ public class App : Singleton<App>
 		return heroInfo.name;
 	}
 	
-	public string GetNickName()
+	private string GetNickName()
 	{
-		int idx = Random.Range(0, nickNames.Length);
+		int cnt = 1000;
+		int idx = 0;
+		while(cnt > 0)
+		{
+			cnt--;
+			idx = Random.Range(0, nickNames.Length);
+			if(!usedNickName.Contains(nickNames[idx]))
+			{
+				break;
+			}
+		}
+		usedNickName.Add(nickNames[idx]);
 		return nickNames[idx];
 	}
 	
@@ -144,6 +175,14 @@ public class App : Singleton<App>
 		role.speed = generalSetting.speedDef;
 		
 		return role;
+	}
+	
+	public void ResetGameInfo()
+	{
+		_HeroInfo = CreateNewRoleInfo(EnumRoleType.HERO);
+		App.Instance.isFirstPlay = true;
+		usedHonorName.Clear();
+		usedNickName.Clear();
 	}
 	
 	public void AddRoleValue(GameData roleInfo, EnumRoleValueType addType)
