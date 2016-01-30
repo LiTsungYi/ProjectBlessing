@@ -8,14 +8,9 @@ public class Gameplay : MonoBehaviour
 {
 	public GameRules gameRule;
 	public Camera theCamera;
-	
-	public GameObject hero;
-	public GameObject monster;
 
 	public Role heroRole;
 	public Role monsterRole;
-	public Text message;
-	public GameObject fightButton;
 	public bool enableBack = true;
 
 	private bool playAction = false;
@@ -29,15 +24,13 @@ public class Gameplay : MonoBehaviour
 	void Start ()
 	{
 		// NOTE: set hero and monster here!
-		var heroPosition = hero.transform.position;
-		hero.transform.position = new Vector3( -10.0f, heroPosition.y, heroPosition.z );
-		hero.active = true;
-		var monsterPosition = monster.transform.position;
-		monster.transform.position = new Vector3( 510.0f, monsterPosition.y, monsterPosition.z );
-		monster.active = true;
+		var heroPosition = heroRole.gameObject.transform.position;
+		heroRole.gameObject.transform.position = new Vector3( -10.0f, heroPosition.y, heroPosition.z );
+		heroRole.gameObject.SetActive( true );
+		var monsterPosition = monsterRole.gameObject.transform.position;
+		monsterRole.gameObject.transform.position = new Vector3( 510.0f, monsterPosition.y, monsterPosition.z );
+		monsterRole.gameObject.SetActive( true );
 		SetState( StageState.Moving );
-
-		EventTriggerListener.Get(fightButton).onClick = OnFightClickX;
 	}
 	
 	void Update ()
@@ -88,7 +81,7 @@ public class Gameplay : MonoBehaviour
 		if ( entering )
 		{
 			theCamera.transform.DOMoveX( 500.0f, 5.0f ).OnComplete( MoveEnd );
-			hero.transform.DOMoveX( 490.0f, 5.0f );
+			heroRole.gameObject.transform.DOMoveX( 490.0f, 5.0f );
 			entering = false;
 		}
 	}
@@ -158,36 +151,20 @@ public class Gameplay : MonoBehaviour
 	public void Attack()
 	{
 		var hero = new GameInfo( App.Instance.heroInfo );
-		if ( heroRole.enable )
-		{
-			hero = heroRole.gameInfo.DeepClone();
-		}
 		Debug.Log( string.Format( "Hero: {0}, Hp={1}, Atk={2}, Def={3}, Spd={4}, Avo={5}", 
 		                         hero.Name, hero.HitPoint, hero.Attack, hero.Defence, hero.Speed, hero.Avoid ) );
+		heroRole.gameInfo = hero;
 
-		var monster = new GameInfo( App.Instance.monsterInfo );
-		if ( monsterRole.enable )
-		{
-			monster = monsterRole.gameInfo.DeepClone();
-		}
+	    var monster = new GameInfo( App.Instance.monsterInfo );
 		Debug.Log( string.Format( "Monster: {0}, Hp={1}, Atk={2}, Def={3}, Spd={4}, Avo={5}", 
 		                         monster.Name, monster.HitPoint, monster.Attack, monster.Defence, monster.Speed, monster.Avoid ) );
-		
+		monsterRole.gameInfo = monster;
+
 		gameRule = new GameRules( hero, monster );
 		playResult = gameRule.Attack();
 		
 		playAction = true;
 		playDuration = 0.0f;
-	}
-
-	public void OnFightClickX( GameObject obj )
-	{
-		if ( playAction )
-		{
-			return;
-		}
-
-		Attack();
 	}
 
 	private bool PerformAction()

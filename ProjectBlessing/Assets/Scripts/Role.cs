@@ -4,8 +4,7 @@ using UnityEngine.UI;
 
 public class Role : MonoBehaviour
 {
-	[SerializeField]
+	[HideInInspector]
 	public GameInfo gameInfo;
-	public bool enable;
 }
 
