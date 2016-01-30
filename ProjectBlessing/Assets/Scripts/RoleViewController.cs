@@ -24,7 +24,7 @@ public class RoleViewController : MonoBehaviour
 		hpText.text = string.Format("{0}", mosterData.hitPoint);
 		atkText.text = string.Format("{0}", mosterData.attack);
 		defText.text = string.Format("{0}", mosterData.defence);
-		avoidText.text = string.Format("{0}", mosterData.avoid);
-		speedText.text = string.Format("{0}", mosterData.speed);
+		avoidText.text = string.Format("{0}%", mosterData.avoid);
+		speedText.text = string.Format("{0:0.00}", mosterData.speed);
 	}
 }

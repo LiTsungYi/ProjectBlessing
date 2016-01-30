@@ -11,9 +11,9 @@ public class GameController : Singleton<GameController>
 	
 	void OnGUI()
 	{
-		if(GUILayout.Button("Main"))
-		{
-			Application.LoadLevel("main");
-		}
+//		if(GUILayout.Button("Main"))
+//		{
+//			Application.LoadLevel("main");
+//		}
 	}
 }

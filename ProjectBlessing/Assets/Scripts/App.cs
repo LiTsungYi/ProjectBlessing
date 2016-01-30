@@ -1,8 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class App : Singleton<App>
 {
+	public List<string> usedHonorName = new List<string>();
+	string[] honorNames = new string[] {
+		"Sword of QQQ", "Speer of QQQ", "Axe of QQQ", "Hammer of QQQ", "Flail of QQQ", "Fortress of QQQ", "Protector of QQQ", "Guardian of QQQ", "Savior of QQQ", "Shield of QQQ", "Slayer of QQQ", "Warrior of QQQ", "Assassin of QQQ", "Fighter of QQQ", "Soldier of QQQ", "QQQ of the Mist Mountain", "QQQ of the Deep Sea", "QQQ of the Crystal Lake", "QQQ of the Endless River", "QQQ of the Faraway Forest", "the Flame QQQ", "the Ice QQQ", "the Wind QQQ", "the Light of QQQ", "the Dark of QQQ"};
+		
+	string[] nickNames = new string[] {
+		"Eldn", "Jyser", "Nybur", "Loos", "Dar'eno", "Honkelon", "Zhoath", "Sertherche", "Ingk", "Hior", "On'hone", "Narixu", "Urn'adu", "Honril", "Und'ghau", "Rod'gar", "Joull", "Torsamris", "Smyshn", "Atu", "Che'oughu", "Emxem", "Vedeso", "Mojit", "Imnver", "Skelyll", "Breang", "Eldok", "Ther'ryna", "Uwara", "Roint", "Tassul", "Epola", "Buronn", "Ranash", "Amoru", "Hinrine", "Peror", "Rynon", "Omaiph", "Ghaiald't", "Radkin", "Snelt", "Orade", "Inaden", "Cybice", "Queque", "Lihat", "Atr", "Enthghae", "Tiaight", "Warpol", "Habana", "Mash", "Enard", "Nyskellye", "Schoran", "Lorslor", "Essenth", "Swivend", "Ard'lor", "Oreng", "Oity", "Awtin", "Uskrilo", "Cleastor", "Elmineo", "Undiusk", "Ormash", "Aleawold", "Adid'o", "Daryl", "Veren", "Tonol", "Chrieckton", "Sulelmeng", "Tas'um'aesh", "Sameldu", "Ateati", "Adeno", "Quataiend", "Saylenth", "Estnt", "Alevelm", "Kobala", "Bumof", "Ataiu", "Draull", "Belyf", "Naltas", "Quedan", "Saltghnal", "Ulyeo", "Cluthray", "Toreng", "Mosshin", "Cuhez", "Equao", "Ingon", "Ohati", "Sunal", "Traranyer", "Dra-ranir", "Morlor", "Che'om", "Angeyt'a", "Iright", "Enddarler", "Eldryn", "Yeroesti", "Zuntser", "Danem", "Beir", "Awar", "Tastas", "Isoq", "Cayus", "Serkime", "Cheit"};
+		
+	string[] monsterNames = new string[]{
+		"AAA", "BBB"
+	};
+
 	[ReadOnly] [SerializeField] private GameData _HeroInfo = null;
 	public GameData heroInfo
 	{
@@ -81,6 +93,31 @@ public class App : Singleton<App>
 		}
 	}
 	
+	public string GetTheHonorName()
+	{
+		string outName = string.Empty;
+		int idx = Random.Range(0, honorNames.Length);
+		usedHonorName.Add(honorNames[idx]);
+		
+		if(heroInfo.name.Equals(string.Empty))
+		{
+			heroInfo.name += honorNames[idx].Replace("QQQ", GetNickName());
+		}
+		else
+		{
+			heroInfo.name += ", " + honorNames[idx].Replace("QQQ", GetNickName());
+		}
+		
+		Debug.Log("GetTheHonorName: " + heroInfo.name);
+		return heroInfo.name;
+	}
+	
+	public string GetNickName()
+	{
+		int idx = Random.Range(0, nickNames.Length);
+		return nickNames[idx];
+	}
+	
 	public GameData CreateNewRoleInfo(EnumRoleType roleType)
 	{
 		GameData role = new GameData();
@@ -96,6 +133,8 @@ public class App : Singleton<App>
 			break;
 		}
 		
+		int monsterId = Random.Range(0, monsterNames.Length);
+		role.id = monsterNames[monsterId];
 		role.hitPoint = generalSetting.hpDef;
 		role.attack = generalSetting.atkDef;
 		role.defence = generalSetting.defDef;

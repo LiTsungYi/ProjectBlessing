@@ -16,7 +16,7 @@ public class GameData
 	public int agi = 0;
 	public int dex = 0;
 	
-	public string name;
+	public string name = string.Empty;
 	public int lv = 0;
 	public int hitPoint;
 	public int attack;

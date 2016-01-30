@@ -24,6 +24,7 @@ public class RitualController : MonoBehaviour
 	void Init()
 	{
 		App.Instance.heroInfo.lv++;	// hero levelup
+		App.Instance.monsterInfo.lv = App.Instance.heroInfo.lv;
 		ritualCount = App.Instance.heroInfo.lv;
 		App.Instance.monsterInfo = App.Instance.CreateNewRoleInfo(EnumRoleType.MOSTER);	//	create new monster
 		
@@ -34,7 +35,7 @@ public class RitualController : MonoBehaviour
 		
 		ShowNowMosterInfo();
 		ShowNowHeroInfo();
-		
+		uiBlessCtrl.ShowHeroName(App.Instance.GetTheHonorName());
 	}
 	
 	[ContextMenu("UpdateMonsterLevel")]
@@ -56,6 +57,7 @@ public class RitualController : MonoBehaviour
 	
 	void ShowNowMosterInfo()
 	{
+		uiBlessCtrl.ShowMonsterName(App.Instance.monsterInfo.id);
 		uiBlessCtrl.monsterViewCtrl.Show(App.Instance.monsterInfo);
 	}
 	
@@ -68,8 +70,10 @@ public class RitualController : MonoBehaviour
 	{
 		Debug.Log ("OnBodyClick: " + bodyBase.ToString());
 		App.Instance.AddRoleValue(App.Instance.heroInfo, bodyBase.bodyType);
+		uiBlessCtrl.ShowOffRitualIcon(ritualCount-1);
 		ritualCount--;
 		ShowNowHeroInfo();
+		
 		
 		if(ritualCount <= 0)
 		{

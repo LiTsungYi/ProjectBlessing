@@ -7,6 +7,5 @@ public class MainController : MonoBehaviour
 	void Start () 
 	{
 		GameController.Instance.Init();
-		Application.LoadLevel("ritual");
 	}
 }
