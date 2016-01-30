@@ -185,7 +185,7 @@ public class Gameplay : MonoBehaviour
 			return false;
 		}
 
-		if ( action.attacker == heroRole.gameInfo.Id )
+		if ( action.attacker == heroRole.gameInfo )
 		{
 			// Hero Attack
 			heroRole.transform.DOShakePosition( 0.1f );

@@ -69,8 +69,8 @@ public class GameRules
 
 				result.Add( new AttackResult() {
 					time = attacker.Cooldown,
-					attacker = attacker.Id,
-					defender = defender.Id,
+					attacker = attacker,
+					defender = defender,
 					hit = false,
 					damage = 0,
 				});
@@ -82,8 +82,8 @@ public class GameRules
 			UpdateDamage( defender, damage );
 			result.Add( new AttackResult() {
 				time = attacker.Cooldown,
-				attacker = attacker.Id,
-				defender = defender.Id,
+				attacker = attacker,
+				defender = defender,
 				hit = true,
 				damage = damage,
 			});
@@ -151,8 +151,8 @@ public class GameInfo
 public class AttackResult
 {
 	public float time;
-	public string attacker;
-	public string defender;
+	public GameInfo attacker;
+	public GameInfo defender;
 	public bool hit;
 	public int damage;
 }
