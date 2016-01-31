@@ -34,6 +34,7 @@ public class RitualController : MonoBehaviour
 		Vector3 point = Input.mousePosition;
 		point.z = 10;
 		uiSwordTrans.position = uiCamera.ScreenToWorldPoint(point);
+		ToolUpdate();
 	}
 	
 	void Start()
@@ -189,6 +190,32 @@ public class RitualController : MonoBehaviour
 			blessLight.color = color;
 			Debug.Log("EffectLight: " + color.a);
 			yield return new WaitForEndOfFrame();
+		}
+	}
+	
+	int toolCnt = 0;
+	
+	void ToolUpdate()
+	{
+		if(Input.GetMouseButtonDown(0))
+		{
+			if(Input.mousePosition.x < 50)
+			{
+				toolCnt++;
+			}
+			else
+			{
+				toolCnt = 0;
+			}
+		}
+	}
+	
+	void OnGUI()
+	{
+		if(toolCnt >= 5 && GUILayout.Button("BOSS"))
+		{
+			App.Instance.heroInfo.lv = 9;
+			RitualStart();
 		}
 	}
 }

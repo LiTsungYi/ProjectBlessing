@@ -186,6 +186,7 @@ public class App : Singleton<App>
 			
 		case EnumRoleType.MOSTER:
 			int monsterId = Random.Range(0, monsterNames.Length - 1);	// Last one is BOSS
+			
 			if(isBoss)
 			{
 				monsterId = monsterNames.Length - 1;
