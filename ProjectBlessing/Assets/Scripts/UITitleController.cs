@@ -27,7 +27,7 @@ public class UITitleController : MonoBehaviour
 	
 	public void ShowIntro(float duration)
 	{
-		bgTrans.DOAnchorPosX(-bgTrans.anchoredPosition.x, duration)
+		bgTrans.DOAnchorPosX(-(bgTrans.anchoredPosition.x + 100f), duration)
 			.SetEase(Ease.InOutSine);
 	}
 }

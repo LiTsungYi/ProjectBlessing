@@ -25,7 +25,7 @@ public class GameRules
 
 	private int CalulateDamage( GameInfo attacker, GameInfo defender )
 	{
-		return defender.Defence >= attacker.Attack ? 1 : attacker.Attack - defender.Defence;
+		return defender.Defence >= attacker.Attack ? 1 : attacker.Attack - defender.Defence + 1;
 	}
 
 	private void UpdateDamage( GameInfo defender, int damage )

@@ -153,7 +153,7 @@ public class Gameplay : MonoBehaviour
 				.SetEase(Ease.InOutSine);
 				
 			bgloader.ShowMove(bgMoveX, introDuration);
-			titleCtrl.ShowIntro(introDuration + 3f);
+			titleCtrl.ShowIntro(introDuration + 5f);
 			entering = false;
 		}
 	}
