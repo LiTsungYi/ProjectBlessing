@@ -69,16 +69,16 @@ public class RitualController : MonoBehaviour
 	
 	void RitualStart()
 	{
-		App.Instance.audioCtrl.PlayBGM(EnumAudio.MENU, 0.0f, 0.5f);
-		var sfxIndex = AudioController.GetRandom(EnumSfx.HeroTalk1, EnumSfx.HeroTalk3);
-		App.Instance.audioCtrl.PlaySfx( sfxIndex );
-		App.Instance.heroInfo.lv++;	// hero levelup
 		if(App.Instance.heroInfo.lv > 10)
 		{
 			Debug.Log("GAME OVER");
 			uiResultCtrl.ShowGameover();
 			return;
 		}
+		App.Instance.audioCtrl.PlayBGM(EnumAudio.MENU, 0.0f, 0.5f);
+		var sfxIndex = AudioController.GetRandom(EnumSfx.HeroTalk1, EnumSfx.HeroTalk3);
+		App.Instance.audioCtrl.PlaySfx( sfxIndex );
+		App.Instance.heroInfo.lv++;	// hero levelup
 		uiBlessCtrl.Init();
 		App.Instance.monsterInfo.lv = App.Instance.heroInfo.lv;
 		ritualCount = App.Instance.heroInfo.lv;
