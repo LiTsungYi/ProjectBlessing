@@ -10,10 +10,10 @@ public class BgLoader : MonoBehaviour
 	public SpriteRenderer frontSprite;
 	public SpriteRenderer backSprite;
 	
-	public void Init(string monsterName)
+	public void Init(EnumStage stage)
 	{
-		string frontName = monsterName + "_front";
-		string backName = monsterName + "_back";
+		string frontName = stage.ToString() + "_front";
+		string backName = stage.ToString() + "_back";
 		
 		string frontPath = "Stages/" + frontName;
 		Debug.Log("frontPath: " + frontPath);
@@ -32,4 +32,11 @@ public class BgLoader : MonoBehaviour
 		backBg.DOMoveX(0, duration)
 			.SetEase(Ease.InOutSine);
 	}
+}
+
+public enum EnumStage
+{
+	ICE_FOREST = 0,
+	SWAMP,
+	GAY,
 }

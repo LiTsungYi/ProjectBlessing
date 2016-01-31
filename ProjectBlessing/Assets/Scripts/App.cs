@@ -192,6 +192,18 @@ public class App : Singleton<App>
 			}
 			role.id = monsterNames[monsterId];
 			generalSetting = gameSettingManager.mosterDefSetting;
+			
+			switch(monsterId)
+			{
+			default:
+				role.stage = EnumStage.ICE_FOREST;	break;
+			case 1:	role.stage = EnumStage.SWAMP;	break;
+			}
+			
+			if(isBoss)
+			{
+				role.stage = EnumStage.GAY;
+			}
 			break;
 		}
 		

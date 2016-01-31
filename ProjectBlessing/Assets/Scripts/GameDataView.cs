@@ -23,4 +23,6 @@ public class GameData
 	public int defence;
 	public float speed;
 	public float avoid;
+	
+	public EnumStage stage;
 }
