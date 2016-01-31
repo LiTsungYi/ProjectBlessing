@@ -37,11 +37,13 @@ public class UITitleController : MonoBehaviour
 	
 	IEnumerator MoveTitle()
 	{
+		var factor = ( float ) System.Math.Pow( 1.1, ( double ) ( App.Instance.heroInfo.lv - 1 ) );
+		var offset = factor * 12;
 		float targetX = -(bgTrans.anchoredPosition.x + 100f);
 		while( bgTrans.anchoredPosition.x > targetX)
 		{
 			var pos = bgTrans.anchoredPosition;
-			pos.x -= 12;
+			pos.x -= offset;
 			bgTrans.anchoredPosition = pos;
 			yield return new WaitForEndOfFrame();
 		}
