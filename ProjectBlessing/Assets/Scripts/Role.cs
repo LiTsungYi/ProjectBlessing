@@ -8,13 +8,16 @@ public class Role : MonoBehaviour
 	public GameInfo gameInfo;
 
 	public TextMesh hpText;
-	
-	private GameObject instanceRole = null;
+
+	[HideInInspector]
+	public GameObject instanceRole = null;
 	public void CreateRole(string roleName)
 	{
 		string path = "Roles/" + roleName;
 		var prefab = Resources.Load<GameObject>(path);
 		instanceRole = TSUtil.Instantiate(prefab, transform);
 	}
+
+
 }
 

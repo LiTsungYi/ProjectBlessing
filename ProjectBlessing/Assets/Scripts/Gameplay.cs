@@ -210,6 +210,12 @@ public class Gameplay : MonoBehaviour
 	{
 		App.Instance.audioCtrl.StopLoopSfx();
 		SetState( StageState.Meet );
+
+		var animator = heroRole.instanceRole.GetComponentInChildren<Animator>();
+		if ( null != animator )
+		{
+			animator.SetTrigger( "ATTACK" );
+		}
 	}
 	
 	private void Meeting()
