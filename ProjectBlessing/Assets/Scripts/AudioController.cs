@@ -67,7 +67,7 @@ public enum EnumAudio
 
 public enum EnumSfx
 {
-	None,
+	SwardTap,
 	HeroTalk1,
 	HeroTalk2,
 	HeroTalk3,

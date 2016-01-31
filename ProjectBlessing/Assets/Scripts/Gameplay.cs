@@ -296,7 +296,9 @@ public class Gameplay : MonoBehaviour
 		}
 
 		var random = ( int ) ( UnityEngine.Random.value * length );
-		return ( EnumSfx )( random + start );
+		var sfxIndex = ( EnumSfx )( random + start );
+		Debug.Log( string.Format( "{0}", sfxIndex.ToString() ) );
+		return sfxIndex;
 	}
 }
 
