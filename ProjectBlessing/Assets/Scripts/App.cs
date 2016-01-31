@@ -219,6 +219,7 @@ public class App : Singleton<App>
 	public void ResetGameInfo()
 	{
 		_HeroInfo = CreateNewRoleInfo(EnumRoleType.HERO);
+		_HeroInfo.name = string.Empty;
 		App.Instance.isFirstPlay = true;
 		usedHonorName.Clear();
 		usedNickName.Clear();

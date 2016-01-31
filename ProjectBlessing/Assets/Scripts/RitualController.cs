@@ -45,6 +45,7 @@ public class RitualController : MonoBehaviour
 	{
 		if(!App.Instance.isFirstPlay)
 		{
+			App.Instance.GetTheHonorName();
 			uiResultCtrl.Show(App.Instance.isWin, ()=>{
 				if(!App.Instance.isWin)
 				{
@@ -108,7 +109,7 @@ public class RitualController : MonoBehaviour
 		
 		ShowNowMosterInfo();
 		ShowNowHeroInfo();
-		uiBlessCtrl.ShowHeroName(App.Instance.GetTheHonorName());
+		uiBlessCtrl.ShowHeroName(App.Instance.heroInfo.name);
 	}
 	
 	[ContextMenu("UpdateMonsterLevel")]

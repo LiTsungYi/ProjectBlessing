@@ -29,6 +29,7 @@ public class HeroController : MonoBehaviour
 		var renders = bodys[idx].GetComponentsInChildren<SpriteRenderer>();
 		for(int i = 0; i < renders.Length; i++)
 		{
+			DOTween.Complete(renders[i]);
 			renders[i].DOColor(Color.white, 1f).From();
 		}
 	}

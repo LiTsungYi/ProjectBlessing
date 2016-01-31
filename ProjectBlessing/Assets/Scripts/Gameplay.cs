@@ -95,7 +95,7 @@ public class Gameplay : MonoBehaviour
 		bgloader.SetX(-bgMoveX);
 		
 		SetState( StageState.Moving );
-		titleCtrl.SetText(App.Instance.GetTheHonorName());
+		titleCtrl.SetText(App.Instance.heroInfo.name);
 		titleCtrl.SetIntroDef();
 
 		ResetMusic();
