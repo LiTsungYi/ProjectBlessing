@@ -7,6 +7,20 @@ public class AudioController : MonoBehaviour
 	public AudioSource audioSource;
 	public AudioClip[] auidoClips;
 	
+	public void PlayBGM(EnumAudio audio, float fadeValue, float fadeTime )
+	{
+		if ( audioSource.isPlaying )
+		{
+			var preValue = audioSource.volume;
+			audioSource.DOFade( fadeValue, fadeTime ).OnComplete(
+				() => { PlayBGM( audio ); audioSource.DOFade( preValue, fadeTime ); } );
+		}
+		else
+		{
+			PlayBGM(audio);
+		}
+	}
+
 	public void PlayBGM(EnumAudio audio)
 	{
 		audioSource.clip = auidoClips[(int)audio];

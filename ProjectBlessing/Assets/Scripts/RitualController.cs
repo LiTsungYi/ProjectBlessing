@@ -40,7 +40,7 @@ public class RitualController : MonoBehaviour
 	
 	void Init()
 	{
-		App.Instance.audioCtrl.PlayBGM(EnumAudio.MENU);
+		App.Instance.audioCtrl.PlayBGM(EnumAudio.MENU, 0.0f, 0.5f);
 		if(!App.Instance.isFirstPlay)
 		{
 			uiResultCtrl.Show(App.Instance.isWin, ()=>{

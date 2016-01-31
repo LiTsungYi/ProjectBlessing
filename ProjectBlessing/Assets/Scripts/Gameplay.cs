@@ -36,8 +36,6 @@ public class Gameplay : MonoBehaviour
 	void Awake()
 	{
 		titleText = TSUtil.InstantiateForUGUI(uiTitlePrefab, canvasTrans).GetComponentInChildren<Text>();
-		//uiResultCtrl = TSUtil.InstantiateForUGUI(uiResultPrefab, canvasTrans).GetComponent<UIResultsController>();
-		//heroSpriteCtrl.Init(OnBodyClick);
 	}
 
 	void Start ()
@@ -51,6 +49,8 @@ public class Gameplay : MonoBehaviour
 		monsterRole.gameObject.SetActive( true );
 		SetState( StageState.Moving );
 		titleText.text = App.Instance.heroInfo.name + "T";
+
+		App.Instance.audioCtrl.PlayBGM( EnumAudio.ICE_FOREST, 0.0f, 0.5f );
 	}
 	
 	void Update ()
@@ -128,6 +128,8 @@ public class Gameplay : MonoBehaviour
 		{
 			entering = false;
 			Attack();
+
+			App.Instance.audioCtrl.PlayBGM( EnumAudio.INGAME, 0.0f, 0.2f );
 		}
 	}
 	
