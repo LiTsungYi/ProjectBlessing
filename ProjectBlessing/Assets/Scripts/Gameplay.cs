@@ -157,10 +157,12 @@ public class Gameplay : MonoBehaviour
 			{
 				if ( App.Instance.isWin )
 				{
+					App.Instance.audioCtrl.PlaySfx( EnumSfx.MonsterDie );
 					monsterRole.gameObject.SetActive( false );
 				}
 				else
 				{
+					App.Instance.audioCtrl.PlaySfx( EnumSfx.HeroDie );
 					heroRole.gameObject.SetActive( false );
 				}
 
@@ -226,13 +228,17 @@ public class Gameplay : MonoBehaviour
 		if ( action.attacker == heroRole.gameInfo )
 		{
 			// Hero Attack
-			heroRole.transform.DOShakePosition( 0.1f );
+			App.Instance.audioCtrl.PlaySfx( EnumSfx.HeroAtk );
+			heroRole.transform.DOShakePosition( 0.1f ).OnComplete(
+				() => { if ( action.hit ) { App.Instance.audioCtrl.PlaySfx( EnumSfx.MonsterHurt ); } } );
 			monsterRole.hpText.text = string.Format( "{0}", action.hp );
 		}
 		else
 		{
 			// Monster attack
-			monsterRole.transform.DOShakePosition( 0.1f );
+			App.Instance.audioCtrl.PlaySfx( EnumSfx.MonsterAtk );
+			monsterRole.transform.DOShakePosition( 0.1f ).OnComplete(
+				() => { if ( action.hit ) { App.Instance.audioCtrl.PlaySfx( EnumSfx.HeroHurt ); } } );
 			heroRole.hpText.text = string.Format( "{0}", action.hp );
 		}
 

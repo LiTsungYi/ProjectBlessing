@@ -6,6 +6,8 @@ public class AudioController : MonoBehaviour
 {
 	public AudioSource audioSource;
 	public AudioClip[] auidoClips;
+	public AudioSource sfxSource;
+	public AudioClip[] sfxClips;
 	
 	public void PlayBGM(EnumAudio audio, float fadeValue, float fadeTime )
 	{
@@ -26,6 +28,11 @@ public class AudioController : MonoBehaviour
 		audioSource.clip = auidoClips[(int)audio];
 		audioSource.Play();
 	}
+
+	public void PlaySfx(EnumSfx sfx )
+	{
+		sfxSource.PlayOneShot(sfxClips[ ( int ) sfx ]);
+	}
 }
 
 public enum EnumAudio
@@ -34,4 +41,15 @@ public enum EnumAudio
 	INGAME,
 	INGAME_INTRO,
 	ICE_FOREST,
+}
+
+public enum EnumSfx
+{
+	PowerUp,
+	HeroAtk,
+	HeroHurt,
+	HeroDie,
+	MonsterAtk,
+	MonsterHurt,
+	MonsterDie,
 }
