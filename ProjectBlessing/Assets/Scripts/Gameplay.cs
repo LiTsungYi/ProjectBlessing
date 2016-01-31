@@ -89,6 +89,7 @@ public class Gameplay : MonoBehaviour
 		monsterRole.CreateRole(App.Instance.monsterInfo.id);
 		monsterRole.gameObject.SetActive( true );
 		
+		bgloader.Init(App.Instance.monsterInfo.id);
 		bgloader.SetX(-bgMoveX);
 		
 		SetState( StageState.Moving );
