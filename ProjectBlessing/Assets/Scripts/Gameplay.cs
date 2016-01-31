@@ -87,6 +87,7 @@ public class Gameplay : MonoBehaviour
 		var monsterPosition = monsterRole.gameObject.transform.position;
 		monsterRole.gameObject.transform.position = monsterIntroPos;
 		monsterRole.CreateRole(App.Instance.monsterInfo.id);
+//		monsterRole.CreateRole("SIR LOVELOT");
 		monsterRole.gameObject.SetActive( true );
 		
 		bgloader.Init(App.Instance.monsterInfo.stage);

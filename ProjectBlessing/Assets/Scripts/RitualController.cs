@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using DG.Tweening;
 
 public class RitualController : MonoBehaviour 
 {
@@ -16,6 +17,8 @@ public class RitualController : MonoBehaviour
 	
 	public GameObject uiSwordPrefab;
 	[HideInInspector] public RectTransform uiSwordTrans;
+	
+	public SpriteRenderer blessLight;
 
 	void Awake()
 	{
@@ -139,6 +142,19 @@ public class RitualController : MonoBehaviour
 	
 	void OnBodyClick(HeroBodyBase bodyBase)
 	{
+		if(ritualCount <= 0)
+		{
+			return;
+		}
+		
+//		DOVirtual.Float(255f, blessLight.color.a, 1f, (a)=>{
+//			var color = blessLight.color;
+//			color.a = a;
+//			blessLight.color = color;
+//		});
+
+//		StartCoroutine(EffectLight());
+		
 		App.Instance.audioCtrl.PlaySfx( EnumSfx.SwardTap );
 		App.Instance.audioCtrl.PlaySfx( EnumSfx.Blessing );
 		Debug.Log ("OnBodyClick: " + bodyBase.ToString());
@@ -147,10 +163,25 @@ public class RitualController : MonoBehaviour
 		ritualCount--;
 		ShowNowHeroInfo();
 		
-		
 		if(ritualCount <= 0)
 		{
-			Application.LoadLevel("game");
+			StartCoroutine(TSUtil.WaitForSeconds(1.2f, ()=>{
+				Application.LoadLevel("game");
+				}));
+		}
+	}
+	
+	IEnumerator EffectLight()
+	{
+		var color = blessLight.color;
+		color.a = 250f;
+		
+		while(color.a >= 100f)
+		{
+			color.a-= 15f;
+			blessLight.color = color;
+			Debug.Log("EffectLight: " + color.a);
+			yield return new WaitForEndOfFrame();
 		}
 	}
 }
