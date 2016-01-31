@@ -13,12 +13,12 @@ public class Gameplay : MonoBehaviour
 	public Role heroRole;
 	public Role monsterRole;
 	public Text titleText;
-	public bool enableBack = true;
 
 	private bool playAction = false;
 	private int playIndex = 0;
 	private IList<AttackResult> playResult = new List<AttackResult>();
 	private float playDuration = 0.0f;
+	private float leaveDuration = 0.0f;
 	
 	private StageState state = StageState.None;
 	private bool entering = false;
@@ -38,8 +38,6 @@ public class Gameplay : MonoBehaviour
 	void Awake()
 	{
 		titleText = TSUtil.InstantiateForUGUI(uiTitlePrefab, canvasTrans).GetComponentInChildren<Text>();
-		//uiResultCtrl = TSUtil.InstantiateForUGUI(uiResultPrefab, canvasTrans).GetComponent<UIResultsController>();
-		//heroSpriteCtrl.Init(OnBodyClick);
 		bgloader = TSUtil.Instantiate(Resources.Load<GameObject>("BgLoader")).GetComponent<BgLoader>();
 	}
 
@@ -60,6 +58,7 @@ public class Gameplay : MonoBehaviour
 		
 		SetState( StageState.Moving );
 		titleText.text = App.Instance.heroInfo.name + "T";
+		App.Instance.audioCtrl.PlayBGM( EnumAudio.ICE_FOREST, 0.0f, 0.2f );
 	}
 	
 	void Update ()
@@ -132,6 +131,7 @@ public class Gameplay : MonoBehaviour
 		if ( entering )
 		{
 			SetState( StageState.Fight );
+			App.Instance.audioCtrl.PlayBGM( EnumAudio.INGAME, 0.0f, 0.2f );
 		}
 	}
 	
@@ -149,25 +149,23 @@ public class Gameplay : MonoBehaviour
 		if ( entering )
 		{
 			entering = false;
-			if ( enableBack )
+			if ( App.Instance.isWin )
 			{
-				Application.LoadLevel("ritual");
+				App.Instance.audioCtrl.PlaySfx( EnumSfx.MonsterDie );
+				monsterRole.gameObject.SetActive( false );
 			}
 			else
 			{
-				if ( App.Instance.isWin )
-				{
-					App.Instance.audioCtrl.PlaySfx( EnumSfx.MonsterDie );
-					monsterRole.gameObject.SetActive( false );
-				}
-				else
-				{
-					App.Instance.audioCtrl.PlaySfx( EnumSfx.HeroDie );
-					heroRole.gameObject.SetActive( false );
-				}
-
-				SetState( StageState.None );
+				App.Instance.audioCtrl.PlaySfx( EnumSfx.HeroDie );
+				heroRole.gameObject.SetActive( false );
 			}
+			
+			leaveDuration = Time.timeSinceLevelLoad + 2.5f;
+		}
+
+		if ( leaveDuration < Time.timeSinceLevelLoad )
+		{
+		    Application.LoadLevel("ritual");
 		}
 	}
 	#endregion

@@ -6,8 +6,10 @@ public class AudioController : MonoBehaviour
 {
 	public AudioSource audioSource;
 	public AudioClip[] auidoClips;
-	public AudioSource sfxSource;
+	public AudioSource sfxSource1;
+	public AudioSource sfxSource2;
 	public AudioClip[] sfxClips;
+	private int lastSound = 0;
 	
 	public void PlayBGM(EnumAudio audio, float fadeValue, float fadeTime )
 	{
@@ -31,7 +33,27 @@ public class AudioController : MonoBehaviour
 
 	public void PlaySfx(EnumSfx sfx )
 	{
-		sfxSource.PlayOneShot(sfxClips[ ( int ) sfx ]);
+		if ( !sfxSource1.isPlaying )
+		{
+			lastSound = 1;
+			sfxSource1.PlayOneShot(sfxClips[ ( int ) sfx ]);
+		}
+		else if ( !sfxSource2.isPlaying )
+		{
+			lastSound = 2;
+			sfxSource2.PlayOneShot(sfxClips[ ( int ) sfx ]);
+		}
+		else
+		{
+			if ( 1 == lastSound )
+			{
+				sfxSource2.PlayOneShot(sfxClips[ ( int ) sfx ]);
+			}
+			else if ( 2 == lastSound )
+			{
+				sfxSource1.PlayOneShot(sfxClips[ ( int ) sfx ]);
+			}
+		}
 	}
 }
 
