@@ -19,14 +19,14 @@ public class UIResultsController : MonoBehaviour
 		if(isWin)	
 		{
 			App.Instance.audioCtrl.PlayBGM( EnumAudio.VICTORY );
-			duration = 5.0f;
+			duration = 4.0f;
 			resultsText.text = "WIN";
 			winImg.gameObject.SetActive(true);
 		}
 		else
 		{
 			App.Instance.audioCtrl.PlayBGM( EnumAudio.FAIL );
-			duration = 7.0f;
+			duration = 5.0f;
 			resultsText.text = "LOSE";
 			loseImg.gameObject.SetActive(true);
 		}

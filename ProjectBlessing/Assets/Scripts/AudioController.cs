@@ -11,6 +11,7 @@ public class AudioController : MonoBehaviour
 	[Header("Sfx")]
 	public AudioSource sfxSource1;
 	public AudioSource sfxSource2;
+	public AudioSource sfxLoopSource;
 	public AudioClip[] sfxClips;
 	private int lastSound = 0;
 
@@ -58,7 +59,21 @@ public class AudioController : MonoBehaviour
 			}
 		}
 	}
+
+	public void PlayLoopSfx( EnumSfx sfx )
+	{
+		audioSource.clip = sfxClips[(int)sfx];
+		sfxLoopSource.Play();
+	}
 	
+	public void StopLoopSfx()
+	{
+		if ( sfxLoopSource.isPlaying )
+		{
+			sfxLoopSource.Stop();
+		}
+	}
+
 	public static EnumSfx GetRandom( EnumSfx start, EnumSfx end )
 	{
 		var length = ( int ) end - ( int ) start + 1;
@@ -132,4 +147,8 @@ public enum EnumSfx
 	SirLovelotDeath3,
 	SirLovelotDeath4,
 	Blessing,
+	HeroMove1,
+	HeroMove2,
+	HeroMove3,
+	HeroMove4,
 }

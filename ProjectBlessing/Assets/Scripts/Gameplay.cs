@@ -188,6 +188,9 @@ public class Gameplay : MonoBehaviour
 	{
 		if ( entering )
 		{
+			var sfxIndex = AudioController.GetRandom( EnumSfx.HeroMove1, EnumSfx.HeroMove4 );
+			App.Instance.audioCtrl.PlayLoopSfx(sfxIndex);
+
 			theCamera.transform.DOMove( camEndPos, introDuration )
 				.SetEase(Ease.InOutSine)
 				.OnComplete( MoveEnd );
@@ -204,6 +207,7 @@ public class Gameplay : MonoBehaviour
 	
 	private void MoveEnd()
 	{
+		App.Instance.audioCtrl.StopLoopSfx();
 		SetState( StageState.Meet );
 	}
 	
