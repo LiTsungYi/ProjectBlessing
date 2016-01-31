@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using DG.Tweening;
 
 public class HeroController : MonoBehaviour 
 {
 	public GameObject[] ritualObjs;
 	public Action<HeroBodyBase> onBodyClick;
+	
+	public GameObject[] bodys;
 	
 	void Awake()
 	{
@@ -18,6 +21,16 @@ public class HeroController : MonoBehaviour
 	public void Init(Action<HeroBodyBase> callback)
 	{
 		onBodyClick = callback;
+	}
+	
+	public void ShowLight(EnumRoleValueType roleType)
+	{
+		int idx = (int)roleType;
+		var renders = bodys[idx].GetComponentsInChildren<SpriteRenderer>();
+		for(int i = 0; i < renders.Length; i++)
+		{
+			renders[i].DOColor(Color.white, 1f).From();
+		}
 	}
 	
 	void OnBodyClick(GameObject obj)

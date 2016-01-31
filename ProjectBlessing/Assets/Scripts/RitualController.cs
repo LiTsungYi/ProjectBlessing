@@ -153,7 +153,13 @@ public class RitualController : MonoBehaviour
 //			blessLight.color = color;
 //		});
 
-//		StartCoroutine(EffectLight());
+		var color = blessLight.color;
+		color.a = 1f;
+		blessLight.DOColor(color, 1f).From();
+		
+		heroSpriteCtrl.ShowLight(bodyBase.bodyType);
+
+	//		StartCoroutine(EffectLight());
 		
 		App.Instance.audioCtrl.PlaySfx( EnumSfx.SwardTap );
 		App.Instance.audioCtrl.PlaySfx( EnumSfx.Blessing );
@@ -172,13 +178,13 @@ public class RitualController : MonoBehaviour
 	}
 	
 	IEnumerator EffectLight()
-	{
+	{	
 		var color = blessLight.color;
-		color.a = 250f;
+		color.a = 1f;
 		
-		while(color.a >= 100f)
+		while(color.a >= 0.4f)
 		{
-			color.a-= 15f;
+			color.a -= 0.1f;
 			blessLight.color = color;
 			Debug.Log("EffectLight: " + color.a);
 			yield return new WaitForEndOfFrame();
