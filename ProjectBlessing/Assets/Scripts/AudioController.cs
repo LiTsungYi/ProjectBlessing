@@ -10,7 +10,7 @@ public class AudioController : MonoBehaviour
 	public AudioSource sfxSource2;
 	public AudioClip[] sfxClips;
 	private int lastSound = 0;
-	
+
 	public void PlayBGM(EnumAudio audio, float fadeValue, float fadeTime )
 	{
 		if ( audioSource.isPlaying )
@@ -67,11 +67,46 @@ public enum EnumAudio
 
 public enum EnumSfx
 {
-	PowerUp,
-	HeroAtk,
-	HeroHurt,
-	HeroDie,
-	MonsterAtk,
-	MonsterHurt,
-	MonsterDie,
+	None,
+	HeroTalk1,
+	HeroTalk2,
+	HeroTalk3,
+	HeroAttack1,
+	HeroAttack2,
+	HeroAttack3,
+	HeroHurt2,
+	HeroHurt3,
+	HeroDeath1,
+	HeroDeath2,
+	HeroDeath3,
+	BatapongAttack1,
+	BatapongAttack2,
+	BatapongAttack3,
+	BatapongHurt1,
+	BatapongHurt2,
+	BatapongHurt3,
+	BatapongDeath1,
+	BatapongDeath2,
+	BatapongDeath3,
+	PiguluAttack1,
+	PiguluAttack2,
+	PiguluAttack3,
+	PiguluHurt1,
+	PiguluHurt2,
+	PiguluHurt3,
+	PiguluDeath1,
+	PiguluDeath2,
+	PiguluDeath3,
+	SirLovelotAttack1,
+	SirLovelotAttack2,
+	SirLovelotAttack3,
+	SirLovelotAttack5,
+	SirLovelotHurt1,
+	SirLovelotHurt2,
+	SirLovelotHurt3,
+	SirLovelotHurt4,
+	SirLovelotDeath1,
+	SirLovelotDeath2,
+	SirLovelotDeath3,
+	SirLovelotDeath4,
 }

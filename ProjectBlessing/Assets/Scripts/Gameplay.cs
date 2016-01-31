@@ -35,6 +35,41 @@ public class Gameplay : MonoBehaviour
 	public float bgMoveX = 3;
 	private BgLoader bgloader;
 
+	private EnumSfx HeroAttackMinIndex = EnumSfx.HeroAttack1;
+	private EnumSfx HeroAttackMaxIndex = EnumSfx.HeroAttack3;
+	private EnumSfx HeroHurtMinIndex = EnumSfx.HeroHurt2;
+	private EnumSfx HeroHurtMaxIndex = EnumSfx.HeroHurt3;
+	private EnumSfx HeroDeathMinIndex = EnumSfx.HeroDeath1;
+	private EnumSfx HeroDeathMaxIndex = EnumSfx.HeroDeath3;
+
+	private EnumSfx BatapongAttackMinIndex = EnumSfx.BatapongAttack1;
+	private EnumSfx BatapongAttackMaxIndex = EnumSfx.BatapongAttack3;
+	private EnumSfx BatapongHurtMinIndex = EnumSfx.BatapongHurt1;
+	private EnumSfx BatapongHurtMaxIndex = EnumSfx.BatapongHurt3;
+	private EnumSfx BatapongDeathMinIndex = EnumSfx.BatapongDeath1;
+	private EnumSfx BatapongDeathMaxIndex = EnumSfx.BatapongDeath3;
+	
+	private EnumSfx PiguluAttackMinIndex = EnumSfx.PiguluAttack1;
+	private EnumSfx PiguluAttackMaxIndex = EnumSfx.PiguluAttack3;
+	private EnumSfx PiguluHurtMinIndex = EnumSfx.PiguluHurt1;
+	private EnumSfx PiguluHurtMaxIndex = EnumSfx.PiguluHurt3;
+	private EnumSfx PiguluDeathMinIndex = EnumSfx.PiguluDeath1;
+	private EnumSfx PiguluDeathMaxIndex = EnumSfx.PiguluDeath3;
+
+	private EnumSfx SirLovelotAttackMinIndex = EnumSfx.SirLovelotAttack1;
+	private EnumSfx SirLovelotAttackMaxIndex = EnumSfx.SirLovelotAttack5;
+	private EnumSfx SirLovelotHurtMinIndex = EnumSfx.SirLovelotHurt1;
+	private EnumSfx SirLovelotHurtMaxIndex = EnumSfx.SirLovelotHurt4;
+	private EnumSfx SirLovelotDeathMinIndex = EnumSfx.SirLovelotDeath1;
+	private EnumSfx SirLovelotDeathMaxIndex = EnumSfx.SirLovelotDeath4;
+	
+	private EnumSfx MonsterAttackMinIndex = EnumSfx.BatapongAttack1;
+	private EnumSfx MonsterAttackMaxIndex = EnumSfx.BatapongAttack3;
+	private EnumSfx MonsterHurtMinIndex = EnumSfx.BatapongHurt1;
+	private EnumSfx MonsterHurtMaxIndex = EnumSfx.BatapongHurt3;
+	private EnumSfx MonsterDeathMinIndex = EnumSfx.BatapongDeath1;
+	private EnumSfx MonsterDeathMaxIndex = EnumSfx.BatapongDeath3;
+
 	void Awake()
 	{
 		titleText = TSUtil.InstantiateForUGUI(uiTitlePrefab, canvasTrans).GetComponentInChildren<Text>();
@@ -131,7 +166,7 @@ public class Gameplay : MonoBehaviour
 		if ( entering )
 		{
 			SetState( StageState.Fight );
-			App.Instance.audioCtrl.PlayBGM( EnumAudio.INGAME, 0.0f, 0.2f );
+			App.Instance.audioCtrl.PlayBGM( EnumAudio.INGAME_INTRO );
 		}
 	}
 	
@@ -151,12 +186,14 @@ public class Gameplay : MonoBehaviour
 			entering = false;
 			if ( App.Instance.isWin )
 			{
-				App.Instance.audioCtrl.PlaySfx( EnumSfx.MonsterDie );
+				var deathIndex = GetRandom( MonsterDeathMinIndex, MonsterDeathMaxIndex );
+				App.Instance.audioCtrl.PlaySfx( deathIndex );
 				monsterRole.gameObject.SetActive( false );
 			}
 			else
 			{
-				App.Instance.audioCtrl.PlaySfx( EnumSfx.HeroDie );
+				var deathIndex = GetRandom( HeroDeathMinIndex, HeroDeathMaxIndex );
+				App.Instance.audioCtrl.PlaySfx( deathIndex );
 				heroRole.gameObject.SetActive( false );
 			}
 			
@@ -226,21 +263,38 @@ public class Gameplay : MonoBehaviour
 		if ( action.attacker == heroRole.gameInfo )
 		{
 			// Hero Attack
-			App.Instance.audioCtrl.PlaySfx( EnumSfx.HeroAtk );
+			var atkIndex = GetRandom( HeroAttackMinIndex, HeroAttackMaxIndex );
+			var hurtIndex = GetRandom( MonsterAttackMinIndex, MonsterAttackMaxIndex );
+			App.Instance.audioCtrl.PlaySfx( atkIndex );
 			heroRole.transform.DOShakePosition( 0.1f ).OnComplete(
-				() => { if ( action.hit ) { App.Instance.audioCtrl.PlaySfx( EnumSfx.MonsterHurt ); } } );
+				() => { if ( action.hit ) { App.Instance.audioCtrl.PlaySfx( hurtIndex ); } } );
 			monsterRole.hpText.text = string.Format( "{0}", action.hp );
 		}
 		else
 		{
 			// Monster attack
-			App.Instance.audioCtrl.PlaySfx( EnumSfx.MonsterAtk );
+			var atkIndex = GetRandom( MonsterAttackMinIndex, MonsterAttackMaxIndex );
+			var hurtIndex = GetRandom( HeroAttackMinIndex, HeroAttackMaxIndex );
+			App.Instance.audioCtrl.PlaySfx( atkIndex );
 			monsterRole.transform.DOShakePosition( 0.1f ).OnComplete(
-				() => { if ( action.hit ) { App.Instance.audioCtrl.PlaySfx( EnumSfx.HeroHurt ); } } );
+				() => { if ( action.hit ) { App.Instance.audioCtrl.PlaySfx( hurtIndex ); } } );
 			heroRole.hpText.text = string.Format( "{0}", action.hp );
 		}
 
 		return ++playIndex >= playResult.Count;
+	}
+
+
+	private EnumSfx GetRandom( EnumSfx start, EnumSfx end )
+	{
+		var length = ( int ) end - ( int ) start + 1;
+		if ( length <= 1 )
+		{
+			return start;
+		}
+
+		var random = ( int ) ( UnityEngine.Random.value * length );
+		return ( EnumSfx )( random + start );
 	}
 }
 

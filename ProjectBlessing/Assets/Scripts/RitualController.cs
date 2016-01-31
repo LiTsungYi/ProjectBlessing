@@ -132,7 +132,7 @@ public class RitualController : MonoBehaviour
 	
 	void OnBodyClick(HeroBodyBase bodyBase)
 	{
-		App.Instance.audioCtrl.PlaySfx( EnumSfx.PowerUp );
+		//App.Instance.audioCtrl.PlaySfx( EnumSfx.PowerUp );
 		Debug.Log ("OnBodyClick: " + bodyBase.ToString());
 		App.Instance.AddRoleValue(App.Instance.heroInfo, bodyBase.bodyType);
 		uiBlessCtrl.ShowOffRitualIcon(ritualCount-1);
