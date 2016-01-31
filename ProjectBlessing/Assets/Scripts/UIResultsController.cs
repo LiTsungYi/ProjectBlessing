@@ -13,20 +13,18 @@ public class UIResultsController : MonoBehaviour
 	public void Show(bool isWin, Action callback)
 	{
 		gameObject.SetActive(true);
-		var duration = 1.5f;
+		var duration = 5.0f;
 		winImg.gameObject.SetActive(false);
 		loseImg.gameObject.SetActive(false);
 		if(isWin)	
 		{
-			App.Instance.audioCtrl.PlayBGM( EnumAudio.VICTORY );
-			duration = 4.0f;
+			App.Instance.audioCtrl.PlayOnceBGM( EnumAudio.VICTORY );
 			resultsText.text = "WIN";
 			winImg.gameObject.SetActive(true);
 		}
 		else
 		{
-			App.Instance.audioCtrl.PlayBGM( EnumAudio.FAIL );
-			duration = 5.0f;
+			App.Instance.audioCtrl.PlayOnceBGM( EnumAudio.FAIL );
 			resultsText.text = "LOSE";
 			loseImg.gameObject.SetActive(true);
 		}

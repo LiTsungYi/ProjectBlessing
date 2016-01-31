@@ -6,6 +6,7 @@ public class AudioController : MonoBehaviour
 {
 	[Header("Audio")]
 	public AudioSource audioSource;
+	public AudioSource audioNoLoopSource;
 	public AudioClip[] auidoClips;
 	
 	[Header("Sfx")]
@@ -33,6 +34,13 @@ public class AudioController : MonoBehaviour
 	{
 		audioSource.clip = auidoClips[(int)audio];
 		audioSource.Play();
+		audioNoLoopSource.Stop();
+	}
+
+	public void PlayOnceBGM(EnumAudio audio)
+	{
+		audioSource.Stop();
+		audioNoLoopSource.PlayOneShot( auidoClips[(int)audio] );
 	}
 
 	public void PlaySfx(EnumSfx sfx )
