@@ -107,6 +107,7 @@ public enum EnumAudio
 	VICTORY,
 	FAIL,
 	SPLASH_SCREEN,
+	CREDIT,
 }
 
 public enum EnumSfx

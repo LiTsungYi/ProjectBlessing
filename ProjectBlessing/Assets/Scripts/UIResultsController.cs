@@ -38,7 +38,7 @@ public class UIResultsController : MonoBehaviour
 	{
 		gameObject.SetActive(true);
 		loseImg.gameObject.SetActive(false);
-		App.Instance.audioCtrl.PlayOnceBGM( EnumAudio.VICTORY );
+		App.Instance.audioCtrl.PlayOnceBGM( EnumAudio.CREDIT );
 		resultsText.text = "FIN";
 	}
 }
