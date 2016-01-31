@@ -51,7 +51,7 @@ public class Gameplay : MonoBehaviour
 		
 		var monsterPosition = monsterRole.gameObject.transform.position;
 		monsterRole.gameObject.transform.position = monsterIntroPos;
-		monsterRole.CreateRole("Monster02");	// TODO:
+		monsterRole.CreateRole(App.Instance.monsterInfo.id);
 		monsterRole.gameObject.SetActive( true );
 		
 		bgloader.SetX(-bgMoveX);

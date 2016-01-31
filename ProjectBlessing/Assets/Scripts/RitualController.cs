@@ -84,6 +84,10 @@ public class RitualController : MonoBehaviour
 		{
 			mosterUpadteCnt += i;
 		}
+		if(isBoss)
+		{
+			mosterUpadteCnt += 10;
+		}
 		
 		Debug.LogWarning("UpdateMonsterLevel LV:" + mosterUpadteCnt);
 		
@@ -138,7 +142,7 @@ public class RitualController : MonoBehaviour
 		
 		if(ritualCount <= 0)
 		{
-			Application.LoadLevel("ritual");
+			Application.LoadLevel("game");
 		}
 	}
 }
