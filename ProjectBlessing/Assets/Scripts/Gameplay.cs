@@ -12,7 +12,7 @@ public class Gameplay : MonoBehaviour
 
 	public Role heroRole;
 	public Role monsterRole;
-	public Text titleText;
+	[HideInInspector] public Text titleText;
 
 	private bool playAction = false;
 	private int playIndex = 0;
@@ -57,7 +57,7 @@ public class Gameplay : MonoBehaviour
 		bgloader.SetX(-bgMoveX);
 		
 		SetState( StageState.Moving );
-		titleText.text = App.Instance.heroInfo.name + "T";
+		titleText.text = App.Instance.GetTheHonorName();
 		App.Instance.audioCtrl.PlayBGM( EnumAudio.ICE_FOREST, 0.0f, 0.2f );
 	}
 	
