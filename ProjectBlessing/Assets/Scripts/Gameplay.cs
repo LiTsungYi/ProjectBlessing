@@ -275,14 +275,14 @@ public class Gameplay : MonoBehaviour
 	public void Attack()
 	{
 		var hero = new GameInfo( App.Instance.heroInfo );
-		Debug.Log( string.Format( "Hero: {0}/{6}, Hp={1}, Atk={2}, Def={3}, Spd={4}, Avo={5}", 
-			hero.Name, hero.HitPoint, hero.Attack, hero.Defence, hero.Speed, hero.Avoid, hero.Id ) );
+		//Debug.Log( string.Format( "Hero: {0}/{6}, Hp={1}, Atk={2}, Def={3}, Spd={4}, Avo={5}", 
+		//	hero.Name, hero.HitPoint, hero.Attack, hero.Defence, hero.Speed, hero.Avoid, hero.Id ) );
 		heroRole.gameInfo = hero;
 		heroRole.hpText.text = string.Format( "{0}", hero.HitPoint );
 
 	    var monster = new GameInfo( App.Instance.monsterInfo );
-		Debug.Log( string.Format( "Monster: {0}/{6}, Hp={1}, Atk={2}, Def={3}, Spd={4}, Avo={5}", 
-			monster.Name, monster.HitPoint, monster.Attack, monster.Defence, monster.Speed, monster.Avoid, monster.Id ) );
+		//Debug.Log( string.Format( "Monster: {0}/{6}, Hp={1}, Atk={2}, Def={3}, Spd={4}, Avo={5}", 
+		//	monster.Name, monster.HitPoint, monster.Attack, monster.Defence, monster.Speed, monster.Avoid, monster.Id ) );
 		monsterRole.gameInfo = monster;
 		monsterRole.hpText.text = string.Format( "{0}", monster.HitPoint );
 
@@ -315,10 +315,10 @@ public class Gameplay : MonoBehaviour
 		{
 			// Hero Attack
 			var atkIndex = AudioController.GetRandom( HeroAttackMinIndex, HeroAttackMaxIndex );
-			var hurtIndex = AudioController.GetRandom( MonsterAttackMinIndex, MonsterAttackMaxIndex );
+			//var hurtIndex = AudioController.GetRandom( MonsterAttackMinIndex, MonsterAttackMaxIndex );
 			App.Instance.audioCtrl.PlaySfx( atkIndex );
 			heroRole.transform.DOShakePosition( 0.1f ).OnComplete(
-				() => { if ( action.hit ) { App.Instance.audioCtrl.PlaySfx( hurtIndex ); } } );
+				() => { /*if ( action.hit ) { App.Instance.audioCtrl.PlaySfx( hurtIndex ); }*/ } );
 			monsterRole.hpText.text = string.Format( "{0}", action.hp );
 		}
 		else

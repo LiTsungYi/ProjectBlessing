@@ -65,7 +65,7 @@ public class GameRules
 			
 			if ( !CalaulateHit( defender ) )
 			{
-				Debug.Log( string.Format( "{0} missed at {1}", attacker.Name, attacker.Cooldown ) );
+				//Debug.Log( string.Format( "{0} missed at {1}", attacker.Name, attacker.Cooldown ) );
 
 				result.Add( new AttackResult() {
 					time = attacker.Cooldown,
@@ -88,18 +88,18 @@ public class GameRules
 				hp = defender.HitPoint,
 			});
 			
-			Debug.Log( string.Format( "{0} deal {1} damage to {2} at {3}", attacker.Name, damage, defender.Name, attacker.Cooldown ) );
+			//Debug.Log( string.Format( "{0} deal {1} damage to {2} at {3}", attacker.Name, damage, defender.Name, attacker.Cooldown ) );
 			UpdateCooldown( attacker );
 		}
 
 		if ( Hero.Alive )
 		{
 			App.Instance.isWin = true;
-			Debug.Log( "Hero Win" );
+			//Debug.Log( "Hero Win" );
 		}
 		else
 		{
-			Debug.Log( "Hero Lose" );
+			//Debug.Log( "Hero Lose" );
 		}
 
 		return result;
