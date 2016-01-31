@@ -70,7 +70,7 @@ public class AudioController : MonoBehaviour
 
 	public void PlayLoopSfx( EnumSfx sfx )
 	{
-		audioSource.clip = sfxClips[(int)sfx];
+		sfxLoopSource.clip = sfxClips[(int)sfx];
 		sfxLoopSource.Play();
 	}
 	
@@ -92,7 +92,6 @@ public class AudioController : MonoBehaviour
 		
 		var random = ( int ) ( UnityEngine.Random.value * length );
 		var sfxIndex = ( EnumSfx )( random + start );
-		Debug.Log( string.Format( "{0}", sfxIndex.ToString() ) );
 		return sfxIndex;
 	}
 }
