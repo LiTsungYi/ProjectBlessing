@@ -12,7 +12,7 @@ public class Gameplay : MonoBehaviour
 
 	public Role heroRole;
 	public Role monsterRole;
-	[HideInInspector] public Text titleText;
+	[HideInInspector] public UITitleController titleCtrl;
 
 	private bool playAction = false;
 	private int playIndex = 0;
@@ -72,7 +72,7 @@ public class Gameplay : MonoBehaviour
 
 	void Awake()
 	{
-		titleText = TSUtil.InstantiateForUGUI(uiTitlePrefab, canvasTrans).GetComponentInChildren<Text>();
+		titleCtrl = TSUtil.InstantiateForUGUI(uiTitlePrefab, canvasTrans).GetComponent<UITitleController>();
 		bgloader = TSUtil.Instantiate(Resources.Load<GameObject>("BgLoader")).GetComponent<BgLoader>();
 	}
 
@@ -92,7 +92,8 @@ public class Gameplay : MonoBehaviour
 		bgloader.SetX(-bgMoveX);
 		
 		SetState( StageState.Moving );
-		titleText.text = App.Instance.GetTheHonorName();
+		titleCtrl.SetText(App.Instance.GetTheHonorName());
+		titleCtrl.SetIntroDef();
 		App.Instance.audioCtrl.PlayBGM( EnumAudio.ICE_FOREST, 0.0f, 0.2f );
 	}
 	
@@ -152,6 +153,7 @@ public class Gameplay : MonoBehaviour
 				.SetEase(Ease.InOutSine);
 				
 			bgloader.ShowMove(bgMoveX, introDuration);
+			titleCtrl.ShowIntro(introDuration + 3f);
 			entering = false;
 		}
 	}
