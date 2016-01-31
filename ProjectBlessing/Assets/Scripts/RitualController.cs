@@ -76,7 +76,8 @@ public class RitualController : MonoBehaviour
 		uiBlessCtrl.Init();
 		App.Instance.monsterInfo.lv = App.Instance.heroInfo.lv;
 		ritualCount = App.Instance.heroInfo.lv;
-		App.Instance.monsterInfo = App.Instance.CreateNewRoleInfo(EnumRoleType.MOSTER);	//	create new monster
+		bool isBoss = (App.Instance.heroInfo.lv == 10) ? true : false;
+		App.Instance.monsterInfo = App.Instance.CreateNewRoleInfo(EnumRoleType.MOSTER, isBoss);	//	create new monster
 		
 		int mosterUpadteCnt = 0;
 		for(int i = 0; i <= App.Instance.heroInfo.lv; i++)
@@ -116,6 +117,7 @@ public class RitualController : MonoBehaviour
 	void ShowNowMosterInfo()
 	{
 		uiBlessCtrl.ShowMonsterName(App.Instance.monsterInfo.id);
+		uiBlessCtrl.SetMonsertShadowCut(App.Instance.monsterInfo.id);
 		uiBlessCtrl.monsterViewCtrl.Show(App.Instance.monsterInfo);
 	}
 	
@@ -135,7 +137,7 @@ public class RitualController : MonoBehaviour
 		
 		if(ritualCount <= 0)
 		{
-			Application.LoadLevel("game");
+			Application.LoadLevel("ritual");
 		}
 	}
 }

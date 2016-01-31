@@ -7,6 +7,7 @@ public class UIBlessController : MonoBehaviour
 	public Text monsterName;
 	public RoleViewController heroViewCtrl;
 	public RoleViewController monsterViewCtrl;
+	public Image monsterShadowCut;
 	
 	public Text heroName;
 	
@@ -42,5 +43,11 @@ public class UIBlessController : MonoBehaviour
 	public void ShowMonsterName(string setname)
 	{
 		monsterName.text = setname;
+	}
+	
+	public void SetMonsertShadowCut(string cutName)
+	{
+		var sprite = Resources.Load<Sprite>("ShadowCuts/" + cutName);
+		monsterShadowCut.sprite = sprite;
 	}
 }
