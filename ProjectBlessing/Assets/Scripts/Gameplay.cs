@@ -188,13 +188,13 @@ public class Gameplay : MonoBehaviour
 			entering = false;
 			if ( App.Instance.isWin )
 			{
-				var deathIndex = GetRandom( MonsterDeathMinIndex, MonsterDeathMaxIndex );
+				var deathIndex = AudioController.GetRandom( MonsterDeathMinIndex, MonsterDeathMaxIndex );
 				App.Instance.audioCtrl.PlaySfx( deathIndex );
 				monsterRole.gameObject.SetActive( false );
 			}
 			else
 			{
-				var deathIndex = GetRandom( HeroDeathMinIndex, HeroDeathMaxIndex );
+				var deathIndex = AudioController.GetRandom( HeroDeathMinIndex, HeroDeathMaxIndex );
 				App.Instance.audioCtrl.PlaySfx( deathIndex );
 				heroRole.gameObject.SetActive( false );
 			}
@@ -265,8 +265,8 @@ public class Gameplay : MonoBehaviour
 		if ( action.attacker == heroRole.gameInfo )
 		{
 			// Hero Attack
-			var atkIndex = GetRandom( HeroAttackMinIndex, HeroAttackMaxIndex );
-			var hurtIndex = GetRandom( MonsterAttackMinIndex, MonsterAttackMaxIndex );
+			var atkIndex = AudioController.GetRandom( HeroAttackMinIndex, HeroAttackMaxIndex );
+			var hurtIndex = AudioController.GetRandom( MonsterAttackMinIndex, MonsterAttackMaxIndex );
 			App.Instance.audioCtrl.PlaySfx( atkIndex );
 			heroRole.transform.DOShakePosition( 0.1f ).OnComplete(
 				() => { if ( action.hit ) { App.Instance.audioCtrl.PlaySfx( hurtIndex ); } } );
@@ -275,8 +275,8 @@ public class Gameplay : MonoBehaviour
 		else
 		{
 			// Monster attack
-			var atkIndex = GetRandom( MonsterAttackMinIndex, MonsterAttackMaxIndex );
-			var hurtIndex = GetRandom( HeroAttackMinIndex, HeroAttackMaxIndex );
+			var atkIndex = AudioController.GetRandom( MonsterAttackMinIndex, MonsterAttackMaxIndex );
+			var hurtIndex = AudioController.GetRandom( HeroAttackMinIndex, HeroAttackMaxIndex );
 			App.Instance.audioCtrl.PlaySfx( atkIndex );
 			monsterRole.transform.DOShakePosition( 0.1f ).OnComplete(
 				() => { if ( action.hit ) { App.Instance.audioCtrl.PlaySfx( hurtIndex ); } } );
@@ -284,21 +284,6 @@ public class Gameplay : MonoBehaviour
 		}
 
 		return ++playIndex >= playResult.Count;
-	}
-
-
-	private EnumSfx GetRandom( EnumSfx start, EnumSfx end )
-	{
-		var length = ( int ) end - ( int ) start + 1;
-		if ( length <= 1 )
-		{
-			return start;
-		}
-
-		var random = ( int ) ( UnityEngine.Random.value * length );
-		var sfxIndex = ( EnumSfx )( random + start );
-		Debug.Log( string.Format( "{0}", sfxIndex.ToString() ) );
-		return sfxIndex;
 	}
 }
 

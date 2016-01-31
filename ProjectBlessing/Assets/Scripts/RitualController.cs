@@ -66,6 +66,8 @@ public class RitualController : MonoBehaviour
 	
 	void RitualStart()
 	{
+		var sfxIndex = AudioController.GetRandom(EnumSfx.HeroTalk1, EnumSfx.HeroTalk3);
+		App.Instance.audioCtrl.PlaySfx( sfxIndex );
 		App.Instance.heroInfo.lv++;	// hero levelup
 		if(App.Instance.heroInfo.lv > 10)
 		{
@@ -133,6 +135,7 @@ public class RitualController : MonoBehaviour
 	void OnBodyClick(HeroBodyBase bodyBase)
 	{
 		App.Instance.audioCtrl.PlaySfx( EnumSfx.SwardTap );
+		App.Instance.audioCtrl.PlaySfx( EnumSfx.Blessing );
 		Debug.Log ("OnBodyClick: " + bodyBase.ToString());
 		App.Instance.AddRoleValue(App.Instance.heroInfo, bodyBase.bodyType);
 		uiBlessCtrl.ShowOffRitualIcon(ritualCount-1);

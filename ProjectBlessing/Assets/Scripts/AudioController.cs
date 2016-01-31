@@ -4,8 +4,11 @@ using DG.Tweening;
 
 public class AudioController : MonoBehaviour 
 {
+	[Header("Audio")]
 	public AudioSource audioSource;
 	public AudioClip[] auidoClips;
+	
+	[Header("Sfx")]
 	public AudioSource sfxSource1;
 	public AudioSource sfxSource2;
 	public AudioClip[] sfxClips;
@@ -54,6 +57,20 @@ public class AudioController : MonoBehaviour
 				sfxSource1.PlayOneShot(sfxClips[ ( int ) sfx ]);
 			}
 		}
+	}
+	
+	public static EnumSfx GetRandom( EnumSfx start, EnumSfx end )
+	{
+		var length = ( int ) end - ( int ) start + 1;
+		if ( length <= 1 )
+		{
+			return start;
+		}
+		
+		var random = ( int ) ( UnityEngine.Random.value * length );
+		var sfxIndex = ( EnumSfx )( random + start );
+		Debug.Log( string.Format( "{0}", sfxIndex.ToString() ) );
+		return sfxIndex;
 	}
 }
 
@@ -109,4 +126,5 @@ public enum EnumSfx
 	SirLovelotDeath2,
 	SirLovelotDeath3,
 	SirLovelotDeath4,
+	Blessing,
 }
