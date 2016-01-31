@@ -24,7 +24,14 @@ public class Gameplay : MonoBehaviour
 	private bool entering = false;
 
 	public GameObject uiTitlePrefab;
-
+	
+	[Header("MovingSetting")]
+	public Vector3 camIntroPos;
+	public Vector3 heroIntroPos;
+	public Vector3 heroEndPos;
+	public float introDuration;
+	public Vector3 monsterIntroPos;
+	public Vector3 monsterEndPos;
 
 	void Awake()
 	{
@@ -37,10 +44,10 @@ public class Gameplay : MonoBehaviour
 	{
 		// NOTE: set hero and monster here!
 		var heroPosition = heroRole.gameObject.transform.position;
-		heroRole.gameObject.transform.position = new Vector3( 0.0f, heroPosition.y, heroPosition.z );
+		heroRole.gameObject.transform.position = heroIntroPos;
 		heroRole.gameObject.SetActive( true );
 		var monsterPosition = monsterRole.gameObject.transform.position;
-		monsterRole.gameObject.transform.position = new Vector3( 505.0f, monsterPosition.y, monsterPosition.z );
+		monsterRole.gameObject.transform.position = monsterIntroPos;
 		monsterRole.gameObject.SetActive( true );
 		SetState( StageState.Moving );
 		titleText.text = App.Instance.heroInfo.name + "T";
@@ -93,8 +100,11 @@ public class Gameplay : MonoBehaviour
 	{
 		if ( entering )
 		{
-			theCamera.transform.DOMoveX( 500.0f, 5.0f ).OnComplete( MoveEnd );
-			heroRole.gameObject.transform.DOMoveX( 500.0f, 5.0f );
+			theCamera.transform.DOMove( camIntroPos, introDuration )
+				.SetEase(Ease.InOutSine)
+				.OnComplete( MoveEnd );
+			heroRole.transform.DOMove( heroEndPos, introDuration )
+				.SetEase(Ease.InOutSine);
 			entering = false;
 		}
 	}
