@@ -230,7 +230,7 @@ public class App : Singleton<App>
 		{
 		case EnumRoleValueType.hp:
 			roleInfo.vit++;
-			roleInfo.hitPoint += roleInfo.vit;
+			roleInfo.hitPoint += roleInfo.vit * 2;
 			break;
 			
 		case EnumRoleValueType.atk:
@@ -243,7 +243,11 @@ public class App : Singleton<App>
 			
 		case EnumRoleValueType.avoid:
 			roleInfo.agi++;
-			if(roleInfo.agi <= 25)
+			if(roleInfo.agi <= 5)
+			{
+				roleInfo.avoid += 4;
+			}
+			else if (roleInfo.agi <= 15)
 			{
 				roleInfo.avoid += 2;
 			}

@@ -81,7 +81,11 @@ public class RitualController : MonoBehaviour
 		bool isBoss = (App.Instance.heroInfo.lv == 10) ? true : false;
 		App.Instance.monsterInfo = App.Instance.CreateNewRoleInfo(EnumRoleType.MOSTER, isBoss);	//	create new monster
 		
-		int mosterUpadteCnt = 0;
+		//int[] monsterPoints = { 0, 2, 4, 6, 8, 12, 16, 24, 32, 48, 64 };
+		//int[] monsterPoints = { 0, 2, 4, 6, 10, 15, 25, 40, 55, 75, 100 };
+		int[] monsterPoints = { 0, 2, 4, 6, 10, 15, 20, 30, 45, 60, 80 };
+		int mosterUpadteCnt = monsterPoints[App.Instance.heroInfo.lv];
+		/*
 		for(int i = 0; i <= App.Instance.heroInfo.lv; i++)
 		{
 			mosterUpadteCnt += i;
@@ -90,6 +94,7 @@ public class RitualController : MonoBehaviour
 		{
 			mosterUpadteCnt += 10;
 		}
+		*/
 		
 		Debug.LogWarning("UpdateMonsterLevel LV:" + mosterUpadteCnt);
 		
