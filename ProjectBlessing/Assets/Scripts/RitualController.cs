@@ -20,8 +20,8 @@ public class RitualController : MonoBehaviour
 	void Awake()
 	{
 		uiBlessCtrl = TSUtil.InstantiateForUGUI(uiBlessPrefab, canvasTrans).GetComponent<UIBlessController>();
-		uiResultCtrl = TSUtil.InstantiateForUGUI(uiResultPrefab, canvasTrans).GetComponent<UIResultsController>();
 		uiSwordTrans = TSUtil.InstantiateForUGUI(uiSwordPrefab, canvasTrans).GetComponent<RectTransform>();
+		uiResultCtrl = TSUtil.InstantiateForUGUI(uiResultPrefab, canvasTrans).GetComponent<UIResultsController>();
 		
 		heroSpriteCtrl.Init(OnBodyClick);
 	}

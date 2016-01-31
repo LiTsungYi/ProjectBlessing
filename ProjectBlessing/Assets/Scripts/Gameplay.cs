@@ -26,16 +26,21 @@ public class Gameplay : MonoBehaviour
 	public GameObject uiTitlePrefab;
 	
 	[Header("MovingSetting")]
-	public Vector3 camIntroPos;
-	public Vector3 heroIntroPos;
-	public Vector3 heroEndPos;
-	public float introDuration;
-	public Vector3 monsterIntroPos;
-	public Vector3 monsterEndPos;
+	public Vector3 camEndPos = new Vector3(9,0,-10);
+	public Vector3 heroIntroPos = new Vector3(-8, -1.7f, 0);
+	public Vector3 heroEndPos = new Vector3(5.4f, -1.7f, 0);
+	public float introDuration = 3f;
+	public Vector3 monsterIntroPos = new Vector3(22, -2.2f, 0);
+	public Vector3 monsterEndPos = new Vector3(15, -2.2f, 0);
+	public float bgMoveX = 3;
+	private BgLoader bgloader;
 
 	void Awake()
 	{
 		titleText = TSUtil.InstantiateForUGUI(uiTitlePrefab, canvasTrans).GetComponentInChildren<Text>();
+		//uiResultCtrl = TSUtil.InstantiateForUGUI(uiResultPrefab, canvasTrans).GetComponent<UIResultsController>();
+		//heroSpriteCtrl.Init(OnBodyClick);
+		bgloader = TSUtil.Instantiate(Resources.Load<GameObject>("BgLoader")).GetComponent<BgLoader>();
 	}
 
 	void Start ()
@@ -43,14 +48,18 @@ public class Gameplay : MonoBehaviour
 		// NOTE: set hero and monster here!
 		var heroPosition = heroRole.gameObject.transform.position;
 		heroRole.gameObject.transform.position = heroIntroPos;
+		heroRole.CreateRole("HeroFight");
 		heroRole.gameObject.SetActive( true );
+		
 		var monsterPosition = monsterRole.gameObject.transform.position;
 		monsterRole.gameObject.transform.position = monsterIntroPos;
+		monsterRole.CreateRole("Monster02");	// TODO:
 		monsterRole.gameObject.SetActive( true );
+		
+		bgloader.SetX(-bgMoveX);
+		
 		SetState( StageState.Moving );
 		titleText.text = App.Instance.heroInfo.name + "T";
-
-		App.Instance.audioCtrl.PlayBGM( EnumAudio.ICE_FOREST, 0.0f, 0.5f );
 	}
 	
 	void Update ()
@@ -100,11 +109,15 @@ public class Gameplay : MonoBehaviour
 	{
 		if ( entering )
 		{
-			theCamera.transform.DOMove( camIntroPos, introDuration )
+			theCamera.transform.DOMove( camEndPos, introDuration )
 				.SetEase(Ease.InOutSine)
 				.OnComplete( MoveEnd );
 			heroRole.transform.DOMove( heroEndPos, introDuration )
 				.SetEase(Ease.InOutSine);
+			monsterRole.transform.DOMove( monsterEndPos, introDuration)
+				.SetEase(Ease.InOutSine);
+				
+			bgloader.ShowMove(bgMoveX, introDuration);
 			entering = false;
 		}
 	}
@@ -128,8 +141,6 @@ public class Gameplay : MonoBehaviour
 		{
 			entering = false;
 			Attack();
-
-			App.Instance.audioCtrl.PlayBGM( EnumAudio.INGAME, 0.0f, 0.2f );
 		}
 	}
 	
