@@ -90,6 +90,7 @@ public class Gameplay : MonoBehaviour
 		monsterRole.gameObject.SetActive( true );
 		
 		bgloader.Init(App.Instance.monsterInfo.id);
+//		bgloader.Init("SIR LOVELOT");
 		bgloader.SetX(-bgMoveX);
 		
 		SetState( StageState.Moving );

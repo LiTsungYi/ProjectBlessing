@@ -27,7 +27,23 @@ public class UITitleController : MonoBehaviour
 	
 	public void ShowIntro(float duration)
 	{
-		bgTrans.DOAnchorPosX(-(bgTrans.anchoredPosition.x + 100f), duration)
-			.SetEase(Ease.InOutSine);
+//		bgTrans.DOAnchorPosX(-(bgTrans.anchoredPosition.x + 100f), duration)
+//		bgTrans.do(-5f, 0.1f)
+//			.SetRelative(true).SetLoops(100);
+//			.SetEase(Ease.InOutSine);
+
+		StartCoroutine(MoveTitle());
+	}
+	
+	IEnumerator MoveTitle()
+	{
+		float targetX = -(bgTrans.anchoredPosition.x + 100f);
+		while( bgTrans.anchoredPosition.x > targetX)
+		{
+			var pos = bgTrans.anchoredPosition;
+			pos.x -= 12;
+			bgTrans.anchoredPosition = pos;
+			yield return new WaitForEndOfFrame();
+		}
 	}
 }
