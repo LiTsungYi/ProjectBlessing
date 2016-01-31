@@ -40,7 +40,6 @@ public class RitualController : MonoBehaviour
 	
 	void Init()
 	{
-		App.Instance.audioCtrl.PlayBGM(EnumAudio.MENU, 0.0f, 0.5f);
 		if(!App.Instance.isFirstPlay)
 		{
 			uiResultCtrl.Show(App.Instance.isWin, ()=>{
@@ -66,6 +65,7 @@ public class RitualController : MonoBehaviour
 	
 	void RitualStart()
 	{
+		App.Instance.audioCtrl.PlayBGM(EnumAudio.MENU, 0.0f, 0.5f);
 		var sfxIndex = AudioController.GetRandom(EnumSfx.HeroTalk1, EnumSfx.HeroTalk3);
 		App.Instance.audioCtrl.PlaySfx( sfxIndex );
 		App.Instance.heroInfo.lv++;	// hero levelup

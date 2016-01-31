@@ -80,6 +80,11 @@ public enum EnumAudio
 	INGAME,
 	INGAME_INTRO,
 	ICE_FOREST,
+	SWAMP,
+	GAY,
+	VICTORY,
+	FAIL,
+	SPLASH_SCREEN,
 }
 
 public enum EnumSfx

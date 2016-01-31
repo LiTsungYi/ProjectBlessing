@@ -8,5 +8,6 @@ public class MainController : MonoBehaviour
 	{
 		GameController.Instance.Init();
 		App.Instance.ResetGameInfo();
+		App.Instance.audioCtrl.PlayBGM( EnumAudio.SPLASH_SCREEN );
 	}
 }

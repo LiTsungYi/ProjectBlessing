@@ -95,7 +95,8 @@ public class Gameplay : MonoBehaviour
 		SetState( StageState.Moving );
 		titleCtrl.SetText(App.Instance.GetTheHonorName());
 		titleCtrl.SetIntroDef();
-		App.Instance.audioCtrl.PlayBGM( EnumAudio.ICE_FOREST, 0.0f, 0.2f );
+
+		ResetMusic();
 	}
 	
 	void Update ()
@@ -136,6 +137,47 @@ public class Gameplay : MonoBehaviour
 				ResetPlay();
 				SetState( StageState.Final );
 			}
+		}
+	}
+
+	private void ResetMusic()
+	{
+		var monsterName = App.Instance.monsterInfo.id;
+		switch ( monsterName )
+		{
+		case "BATAPONG":
+			App.Instance.audioCtrl.PlayBGM( EnumAudio.ICE_FOREST, 0.0f, 0.2f );
+			MonsterAttackMinIndex = BatapongAttackMinIndex;
+			MonsterAttackMaxIndex = BatapongAttackMaxIndex;
+			MonsterHurtMinIndex = BatapongHurtMinIndex;
+			MonsterHurtMaxIndex = BatapongHurtMaxIndex;
+			MonsterDeathMinIndex = BatapongDeathMinIndex;
+			MonsterDeathMaxIndex = BatapongDeathMaxIndex;
+			break;
+
+		case "PIGULU":
+			App.Instance.audioCtrl.PlayBGM( EnumAudio.SWAMP, 0.0f, 0.2f );
+			MonsterAttackMinIndex = PiguluAttackMinIndex;
+			MonsterAttackMaxIndex = PiguluAttackMaxIndex;
+			MonsterHurtMinIndex = PiguluHurtMinIndex;
+			MonsterHurtMaxIndex = PiguluHurtMaxIndex;
+			MonsterDeathMinIndex = PiguluDeathMinIndex;
+			MonsterDeathMaxIndex = PiguluDeathMaxIndex;
+			break;
+
+		case "SIR LOVELOT":
+			App.Instance.audioCtrl.PlayBGM( EnumAudio.GAY, 0.0f, 0.2f );
+			MonsterAttackMinIndex = SirLovelotAttackMinIndex;
+			MonsterAttackMaxIndex = SirLovelotAttackMaxIndex;
+			MonsterHurtMinIndex = SirLovelotHurtMinIndex;
+			MonsterHurtMaxIndex = SirLovelotHurtMaxIndex;
+			MonsterDeathMinIndex = SirLovelotDeathMinIndex;
+			MonsterDeathMaxIndex = SirLovelotDeathMaxIndex;
+			break;
+
+		default:
+			App.Instance.audioCtrl.PlayBGM( EnumAudio.ICE_FOREST, 0.0f, 0.2f );
+			break;
 		}
 	}
 
